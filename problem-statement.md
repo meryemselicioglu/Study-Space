@@ -2,7 +2,7 @@
 ## Problem Statement 1
 
 ### **User**
-- All University students and institution administration
+- All university students and institution administration
 
 ### **Need**
 - Efficient, fast, and hassle-free way of getting a quiet place to study / have an interview, etc
@@ -16,7 +16,7 @@
 ## Problem Statement 2
 
 ### **User**
-- All University students and institution administration
+- All commuter university students and institution administration
 
 ### **Need**
 - Efficient, fast, and hassle-free way of getting a quiet place to study / have an interview, etc
