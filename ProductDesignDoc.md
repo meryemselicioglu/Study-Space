@@ -73,17 +73,14 @@
 - View available seats in every study space
 - Help
 
-## Top Two to Three Scenarios
-[see sample scenarios](https://github.com/mschray/IPro497Sample/blob/main/ScenarioExample.md)
+## Scenarios NEED TO DO
 
 ### Your Scenario #1
 ### Your Scenario #2
 ### Your Scenario #3
 
 ## Team Members
-Please create a table for the details below 
 
-Name	Location	Time zone offset from Chicago (Chicago is 0 offset)
 | Name        | Location           | Time offset  |
 | ------------- |:-------------:| -----:|
 | Michal Landa | Chicago 	| 0 |
@@ -97,16 +94,16 @@ Name	Location	Time zone offset from Chicago (Chicago is 0 offset)
 
 ## Team Working Agreement
 - We will use Github and keep items updated as progress is made
-- If we need to meet outside of class we have found a mutually agreeable time at: when2meet.com/?14321875-mYjIl (Before class) 
+- If we need to meet outside of class we have found a mutually agreeable time at: **when2meet.com/?14321875-mYjIl (Before class)**
 - If we need to meet outside of class we will use the following tool/tech for meetings: **Discord**
 - When we are not meeting together we will user the following tool/tech for communications: **Discord**
-- How will get collaborate and a friendly, professional and cohesive team (please complete the list below)
+- How we will collaborate and create a friendly, professional and cohesive team
   - item 1
   - ...
 
 ## Presentation Schedule
 | Week        | Person           |
-| ------------- |:-------------:| 
+| ------------- |:------------| 
 | Week 4 & 5 : 2/1/22 & 2/8/22 | Abdallah Abdelijamil |
 | Week 6 & 7: 2/15/22 & 2/22/22 | Navya Sheth |
 | Week 8 & 9: 3/1/22 & 3/8/22 | Hana Iverson |
