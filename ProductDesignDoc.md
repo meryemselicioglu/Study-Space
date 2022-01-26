@@ -7,16 +7,16 @@
 - With a large majority of students at many universities being commuters, university students need a fast, efficient, and hassle-free way of getting a quiet place to study, take an interview, or anything else.  
  
 ## Customer
-### Description NEED TO DO
+### Description
+NEED TO DO
  
 ### Customer Personas
   <img src="https://imgur.com/pGWfCes.png"
      alt="Persona 1"
-     style="width: 300px;"
+     style="width: 250px;"
      align="right"/>
-- ### Persona 1
   - Name
-    - Claudia Alversson 
+    - Claudia Alversson
   - Background
     - 2nd Year
     - Commuter
@@ -24,14 +24,15 @@
   - Goal
     - Reliably and efficiently find a study/ collaboration space on campus for free.
   - How we can help?
-    - Provide an easy-to-use website on both web and mobile to allow Claudia to view and reserve open rooms that can be used for studying.
+    - Provide an easy-to-use website on both web and mobile to allow Claudia to view and reserve open rooms that can be used for studying.  
+  &nbsp;  
+
  
   <img src="https://imgur.com/iLPeEow.png"
      alt="Persona 1"
-     style="width: 300px;"
+     style="width: 250px;"
      align="right"
      />
-- ### Persona 2
   - Name
     - Mahmoud El Toukhi 
   - Background
@@ -41,7 +42,8 @@
   - How we can help?
     - Create a platform that allows university administrators to easily and reliably offer the available study/ collaboration spaces to the university students.
 
-### Other customer(s) or stakeholder(s) NEED TO DO
+### Other customer(s) or stakeholder(s) 
+NEED TO DO
 
  
 ## Application Type
@@ -73,11 +75,12 @@
 - View available seats in every study space
 - Help
 
-## Scenarios NEED TO DO
+## Scenarios 
+NEED TO DO
 
-### Your Scenario #1
-### Your Scenario #2
-### Your Scenario #3
+- Your Scenario #1
+- Your Scenario #2
+- Your Scenario #3
 
 ## Team Members
 
