@@ -4,7 +4,7 @@
 
 - With the increase of COVID cases on university campuses, university students need a fast, efficient, and hassle-free way of getting a quiet place to study, take an interview, or anything else. 
 
-- With a large majority of students at many universities being commuters, university students need a fast, efficient, and hassle-free way of getting a quiet place to study, take an interview, or anything else.  
+- University students need a fast and efficient way of getting a resourceful study space that contains resources to suit their studying needs (projector, whiteboard, etc).  
  
 ## Customer
 ### Description
