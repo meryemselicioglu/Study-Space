@@ -8,7 +8,7 @@
  
 ## Customer
 ### Description
-NEED TO DO
+College students that need an easy way to find a place to study on campus, College administration needing a simple way to offer study spaces across campus. 
  
 ### Customer Personas
   <img src="https://imgur.com/pGWfCes.png"
@@ -43,13 +43,16 @@ NEED TO DO
     - Create a platform that allows university administrators to easily and reliably offer the available study/ collaboration spaces to the university students.
 
 ### Other customer(s) or stakeholder(s) 
-NEED TO DO
-
+- Cleaning Staff
+- Maintance Staff
+- Professors 
+- Campus Security 
+- Campus IT Department 
  
 ## Application Type
-### Tech stack
 - Website
   - Mobile-friendly
+## Tech stack
 ### Client Tech 
 - HTML
 - Bootstrap CSS
@@ -82,7 +85,7 @@ NEED TO DO
 - Your Scenario #2
 - Your Scenario #3
 
-## Team Members
+## Team Members & Project Manager Schedule
 
 | Name        | Location           | Time offset  |
 | ------------- |:-------------:| -----:|
@@ -93,18 +96,6 @@ NEED TO DO
 | Abdallah Abdeljamil | Chicago 	| 0 |
 | Hana Iverson | Chicago 	| 0 |
 		
-		
-
-## Team Working Agreement
-- We will use Github and keep items updated as progress is made
-- If we need to meet outside of class we have found a mutually agreeable time at: **when2meet.com/?14321875-mYjIl (Before class)**
-- If we need to meet outside of class we will use the following tool/tech for meetings: **Discord**
-- When we are not meeting together we will user the following tool/tech for communications: **Discord**
-- How we will collaborate and create a friendly, professional and cohesive team
-  - item 1
-  - ...
-
-## Presentation Schedule
 | Week        | Person           |
 | ------------- |:------------| 
 | Week 4 & 5 : 2/1/22 & 2/8/22 | Abdallah Abdelijamil |
@@ -113,3 +104,17 @@ NEED TO DO
 | Week 10 & 11: 3/22/22 & 3/29/22 | J’Veun Brimmer |
 | Week 12 & 13: 4/5/22 & 4/12/22 | Meryem Selicioglu |
 | Week 14: 4/19/22 | Michal Landa |
+
+## Team Working Agreement
+- We will use Github and keep items updated as progress is made
+- If we need to meet outside of class we have found a mutually agreeable time at: **when2meet.com/?14321875-mYjIl (Before class)**
+- If we need to meet outside of class we will use the following tool/tech for meetings: **Discord**
+- When we are not meeting together we will user the following tool/tech for communications: **Discord**
+- How we will collaborate and create a friendly, professional and cohesive team
+  - Show up on time
+  - Let team know if you will be late
+  - Use Discord only to minimize confusion
+  - Equal workload (16.666%)
+  - Give constructive feedback
+  - Be honest with opinions on each other’s work, no beating around the bush.
+
