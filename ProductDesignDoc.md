@@ -79,11 +79,14 @@ College students that need an easy way to find a place to study on campus, Colle
 - Help
 
 ## Scenarios 
-NEED TO DO
+### Scenario #1
+Claudia has a computer science project due in two days. She is a commuter and drives to campus when she needs to work on project or assignments as her house is very loud. She wants to make sure she has a quiet place to work on this project so she opens up the Study Reservation App to find somewhere to stay while on campus. She knows there’s a parking lot behind the Galvin Library, and it is incredibly cold today, so she decides to see if there are any available study rooms there, to minimize the walk while outside. Ideally the room needs to be open in 30 minutes, as that is her commute to the university. Once she reserves the spot and gets to campus, she finds the room she reserved, checks in on the website through her mobile phone, and gets her project done. 
 
-- Your Scenario #1
-- Your Scenario #2
-- Your Scenario #3
+### Scenario #2
+Mirte and her classmates from CS 487 have a midterm exam they need to study for. They need to find a quiet study space that not only has a whiteboard, but also has a projector and 6 seats. In the past, they’ve gone around all the available buildings to find a suitable spot, but this would take 30-45 mins. However, as of this semester, there is a new website being used on campus that allows students to quickly and efficiently find a study space that meets all of their equipment and seating needs. So, Mirte goes onto her phone’s web browser, and is able to book a study room in the engineering building within three minutes of opening the website that is equipped with a projector, a whiteboard, and 8 seats. 
+
+### Scenario #3
+It is currently Tuesday and Alex has an upcoming final exam in Math 333 next week on Monday. Since he was not performing well in earlier midterms he wants to put in as much time and effort for it as possible. He lives on campus in a dorm and wants to avoid the common study lounges which tend to be quite busy and crowded. In order to be as safe as possible from COVID he plans to book a study space where he can be isolated and study efficiently by utilizing the resources, like projector and whiteboard, present in the room as well. He opens the Study Reservation App to find available spots and books a room for 4 hours each from 2:00-6:00pm on Wednesday, Thursday, and Friday of the current week. 
 
 ## Team Members & Project Manager Schedule
 
