@@ -1,6 +1,6 @@
 import psycopg2
-from DBConnection import *
-from User import *
+from database.DBConnection import *
+from database.User import *
 from flask import (
     Flask,
     g,
@@ -27,10 +27,13 @@ def before_request():
     conn.commit()
     result_users = cursor.fetchall()
     
+    g.user = None
     for usr in result_users:
         if usr[1] == session['email']:
-            temp_user = User(usr[0], usr[3], usr[4])
+            temp_user = User(usr[0], usr[1], usr[2], usr[3], usr[5], usr[4])
             g.user = temp_user
-        else:
-            g.user = None
 
+
+@app.route('/')
+def test():
+    return render_template('index.html')
