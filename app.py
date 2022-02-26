@@ -22,9 +22,10 @@ db = DBConnection('studyspacesboss', 'IPRO497gpd!!', 'studyspacesdbserver.postgr
 conn = db.connect()
 cursor = conn.cursor()
 conn.autocommit = True
+counter = 3
 
-def add_reservation(user_id, room_id, group_size, start_time, end_time):
-    query = f"insert into reservations values (3, {user_id}, {room_id}, 3, 'reserved', {group_size}, {time.time()}, {start_time}, {end_time})"
+def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
+    query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{time.time()}', '{start_time}', '{end_time}')"
     cursor.execute(query)
     conn.commit()
 
@@ -53,22 +54,25 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('headerfooter.html')
 
-@app.route('/room_info.html', )
+@app.route('/rooms', methods=['POST', 'GET'])
 def rooms():
+    return render_template('rooms.html')
+
+@app.route('/room_info.html', methods=['POST', 'GET'])
+def room():
     return render_template('room_info.html')
 
 @app.route('/confirmation.html', methods=['POST', 'GET'])
 def confirm():
-    x = request.args.get("name")
-    y = request.args.get("start")
-    z = request.args.get("end")
-
-    if request.method == 'GET':
-        print("here")
-        add_reservation(3, 3, 6, "5", "7")
-    return render_template('confirmation.html', x=x, y=y, z=z)    
+    size = request.form.get("groupsize")
+    time = request.form.get("time")
+    time = time.split("-")
+    start = time[0]
+    end = time[1]
+    add_reservation(3, 3, 3, 3, 'reserved', int(size), start, end)
+    return render_template('confirmation.html')    
 
 if __name__ == "__main__":
     app.static_folder='resources'

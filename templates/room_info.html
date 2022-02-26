@@ -7,24 +7,46 @@
 
     <title>IPRO Group J</title>
     <script>
-        document.location = "?name=Wishnick_Hall_129&start=5:00PM&end=7:00PM"
+      function getName() {
+        let dc = document.cookie;
+        let decodedCookie = decodeURIComponent(dc);
+        cookies = decodedCookie.split(";");
+        for (let i = 0; i < cookies.length; i++){
+          if (cookies[i].startsWith("roomname")){
+            splitcookie = cookies[i].split("=");
+            document.getElementById("name").innerHTML = splitcookie[1];
+          }
+        }
+      }
+
+      function x() {
+
+      }
     </script>
   </head>
 
-  <body>
+  <body onload="getName()">
     <p style="text-align: right;margin-right: 10px;">Logged in: Joe</p>
-    <h1 id = "name" style="margin:auto;text-align:center;padding-top:30px">Wishnick Hall 129</h1>
+    <h1 id = "name" style="margin:auto;text-align:center;padding-top:30px"></h1>
     <h3 id = "start" style="margin:auto;text-align:center;margin-top:5%">Start Time: 5:00 PM</h3>
     <h3 id = "end" style="margin:auto;text-align:center;margin-top:5%">End Time: 7:00 PM</h3>
 
     <div style="margin-left: 43%;margin-top:100px">
-        <form method="post">
-            <label for="size">Group Size:</label>
-            <input name="size" style="margin: 0 auto;" type="text" id="size" met>
+        <form action="{{ url_for('confirm') }}" method="post">
+            
+            <div>
+              <label for="size">Group Size:</label>
+              <input name="groupsize" style="margin: 0 auto;" type="text" id="size">
+            </div>
+
+            <div>
+              <label for="time">Time:</label>
+              <input name="time" style="margin: 0 auto;margin-left: 3.65%;" type="text" id="time">
+            </div>
+            
+            <div style="margin-left: 10%;margin-top: 5%;">
+              <button onclick="" id="reserve" type="submit" name="Reserve">Reserve</button>
+            </div>
         </form>
-    </div>
-    
-    <div>
-        <button style="margin-left: 50%;margin-top: 5%;" id="reserve" type="button" name="Reserve"><a href="confirmation.html">Reserve</a></button>
     </div>
   </body>
