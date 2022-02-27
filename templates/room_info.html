@@ -1,61 +1,89 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'headerfooter.html' %}
 
-    <title>IPRO Group J</title>
-    <script>
-      function getName() {
-        let temp = '';
-        let dc = document.cookie;
-        let decodedCookie = decodeURIComponent(dc);
-        cookies = decodedCookie.split(";");
-        for (let i = 0; i < cookies.length; i++){
-          if (cookies[i].startsWith("roomname")){
-            splitcookie = cookies[i].split("=");
-            document.getElementById("name").innerHTML = splitcookie[1];
-            temp = splitcookie[1];
-          }
+{% block content %}
+  <style>
+    #loggedin {
+      text-align: right;
+      margin-right: 10px;
+    }
+
+    .maininfo {
+      margin:auto;text-align:center;
+    }
+
+    #name {
+      padding-top:30px;
+    }
+    #time {
+      margin-top:5%;
+      margin-left: 45%;
+    }
+
+    .input {
+      margin-left: 43%;
+      margin-top:100px;
+    }
+
+    #size {
+      margin: 0 auto;
+    }
+
+    #timeinput {
+      margin: 0 auto;
+      margin-left: 3.65%;
+    }
+
+    .reservebutton {
+      margin-left: 10%;
+      margin-top: 5%;
+    }
+  </style>
+  <script>
+    function getName() {
+      let temp = '';
+      let dc = document.cookie;
+      let decodedCookie = decodeURIComponent(dc);
+      cookies = decodedCookie.split(";");
+      for (let i = 0; i < cookies.length; i++){
+        if (cookies[i].startsWith("roomname")){
+          splitcookie = cookies[i].split("=");
+          document.getElementById("name").innerHTML = splitcookie[1];
+          temp = splitcookie[1];
         }
-        // //set query params in url to be used with flask
-        // const urlParams = new URLSearchParams(window.location.search);
-        // urlParams.set('roomname', temp);
-        // window.location.search = urlParams;
       }
-
-      function x() {
-
-      }
-    </script>
-  </head>
+      // //set query params in url to be used with flask
+      // const urlParams = new URLSearchParams(window.location.search);
+      // urlParams.set('roomname', temp);
+      // window.location.search = urlParams;
+    }
+  </script>
 
   <body onload="getName()">
-    <p style="text-align: right;margin-right: 10px;">Logged in: Joe</p>
+    <p id="loggedin">Logged in: Joe</p>
     {% for message in get_flashed_messages() %}
       <center><p style="color: red;">{{ message }}</p></center>
     {% endfor %}
-    <h1 id = "name" style="margin:auto;text-align:center;padding-top:30px"></h1>
-    <h3 id = "start" style="margin:auto;text-align:center;margin-top:5%">Start Time: 5:00 PM</h3>
-    <h3 id = "end" style="margin:auto;text-align:center;margin-top:5%">End Time: 7:00 PM</h3>
+    <h1 class="maininfo" id = "name"></h1>
+    <h3 id = "time">Start Time: 5:00 PM</h3>
+    <h3 id = "time">End Time: 7:00 PM</h3>
 
-    <div style="margin-left: 43%;margin-top:100px">
+    <div class="input">
         <form action="{{ url_for('confirm') }}" method="post">
             
             <div>
               <label for="size">Group Size:</label>
-              <input name="groupsize" style="margin: 0 auto;" type="text" id="size">
+              <input name="groupsize" type="text" id="size">
             </div>
 
             <div>
               <label for="time">Time:</label>
-              <input name="time" style="margin: 0 auto;margin-left: 3.65%;" type="text" id="time">
+              <input name="time" type="text" id="timeinput">
             </div>
             
-            <div style="margin-left: 10%;margin-top: 5%;">
+            <div class="reservebutton">
               <button onclick="" id="reserve" type="submit" name="Reserve">Reserve</button>
             </div>
         </form>
     </div>
   </body>
+{% endblock %}
