@@ -9,11 +9,6 @@
             text = text.replace(/\s/g, ''); //remove extra spaces
             document.cookie = "roomname=" + text;
             window.location.href = "room_info.html";
-
-            const params = new URLSearchParams(location.search);
-            params.set('room', document.getElementById("room1").innerHTML);
-            params.toString();
-            window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
         }
     </script>
 </head>

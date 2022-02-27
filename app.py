@@ -66,12 +66,25 @@ def room():
 
 @app.route('/confirmation.html', methods=['POST', 'GET'])
 def confirm():
-    size = request.form.get("groupsize")
-    time = request.form.get("time")
-    time = time.split("-")
-    start = time[0]
-    end = time[1]
-    add_reservation(3, 3, 3, 3, 'reserved', int(size), start, end)
+    if request.method == 'POST':
+        size = request.form.get("groupsize")
+        time = request.form.get("time")
+
+        if size == '' and time == '':
+            flash("Cannot leave 'Group Size' and 'Time' blank")
+            return redirect(url_for('room'))
+        elif size == '':
+            flash("Cannot leave 'Group Size' blank")
+            return redirect(url_for('room'))
+        elif time == '':
+            flash("Cannot leave 'Time' blank")
+            return redirect(url_for('room'))
+
+
+        time = time.split("-")
+        start = time[0]
+        end = time[1]
+        add_reservation(3, 3, 3, 3, 'reserved', int(size), start, end)
     return render_template('confirmation.html')    
 
 if __name__ == "__main__":

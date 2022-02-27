@@ -8,6 +8,7 @@
     <title>IPRO Group J</title>
     <script>
       function getName() {
+        let temp = '';
         let dc = document.cookie;
         let decodedCookie = decodeURIComponent(dc);
         cookies = decodedCookie.split(";");
@@ -15,8 +16,13 @@
           if (cookies[i].startsWith("roomname")){
             splitcookie = cookies[i].split("=");
             document.getElementById("name").innerHTML = splitcookie[1];
+            temp = splitcookie[1];
           }
         }
+        // //set query params in url to be used with flask
+        // const urlParams = new URLSearchParams(window.location.search);
+        // urlParams.set('roomname', temp);
+        // window.location.search = urlParams;
       }
 
       function x() {
@@ -27,6 +33,9 @@
 
   <body onload="getName()">
     <p style="text-align: right;margin-right: 10px;">Logged in: Joe</p>
+    {% for message in get_flashed_messages() %}
+      <center><p style="color: red;">{{ message }}</p></center>
+    {% endfor %}
     <h1 id = "name" style="margin:auto;text-align:center;padding-top:30px"></h1>
     <h3 id = "start" style="margin:auto;text-align:center;margin-top:5%">Start Time: 5:00 PM</h3>
     <h3 id = "end" style="margin:auto;text-align:center;margin-top:5%">End Time: 7:00 PM</h3>
