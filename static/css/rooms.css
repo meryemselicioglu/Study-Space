@@ -1,0 +1,22 @@
+.rooms { 
+    padding: 50px;
+    background-color: rgb(179, 179, 179);
+}  
+
+button { 
+background-color: #FF6F6F; 
+width: 25%;
+    color: white; 
+    padding: 15px; 
+    margin: 10px 0px; 
+    width : 200px;
+    border: none; 
+    cursor: pointer; 
+    
+} 
+
+.box {
+    width : 1000 px;
+    height : 200 px;
+    background-color : rgb(83, 78, 78);
+}

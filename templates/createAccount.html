@@ -1,27 +1,9 @@
 <!DOCTYPE html> 
 <html> 
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "description" content = "A place to help you focus on your work and and boost your performance">
-    <title>StudySpace</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Create Account Page </title>
 <style> 
-#title {
-    margin:auto;
-    text-align:center;
-    padding-bottom: 2%;
-}
-
-.links {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-#footertext {
-    padding-top: 10%;
-    margin:auto;
-    text-align:center;
-}
 Body {
   font-family: Calibri, Helvetica, sans-serif;
   background-color: white;
@@ -63,24 +45,6 @@ button {
 </style> 
 </head>  
 <body>  
-    <header>
-        <h1 id="title">
-            Study Space Reservations
-        </h1>
-        <hr/>
-        <div class="links">
-            <a href = "{{ url_for('home') }}"> Home</a>
-            <a href = "{{ url_for('rooms') }}"> Reserve Room</a>
-            <a href = "page3.html" target = "_blank"> About Us</a>
-            <a href = "{{ url_for('login') }}"> Login</a>
-            <input type = "text " placeholder = "search" /> 
-        </div>
-    </header>
-   
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>        
-
     <center> <h1> Create Account </h1> </center> 
     <form>
         <div class="container"> 
@@ -107,7 +71,4 @@ button {
         </div> 
     </form>   
 </body>   
-<footer>
-    <h4 id="footertext">this is footer</h4>
-</footer>
 </html>

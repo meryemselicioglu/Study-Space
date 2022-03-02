@@ -34,7 +34,7 @@ College students that need an easy way to find a place to study on campus, Colle
      align="right"
      />
   - Name
-    - Mahmoud El Toukhi 
+    - Edmund Toukhi 
   - Background
     - Administrator
   - Goal
@@ -58,14 +58,14 @@ College students that need an easy way to find a place to study on campus, Colle
 - Bootstrap CSS
 - JavaScript 
 ### Server Tech
-- Python (Flask?)
+- Python (Flask)
 - Database
   - PostgreSQL
 - Cloud or Local?
   - Server
-    - Apache?
+    - Apache
   - Database
-    - Azure/ AWS/ GCP    
+    - Azure
  
 ## Top Application Capabilities
 - **Create account**

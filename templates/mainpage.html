@@ -1,0 +1,23 @@
+{% extends 'headerfooter.html' %}
+
+{% block content %}
+    <style>
+        .welcome {
+            margin:auto;text-align:center;
+        }
+        
+        #img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+    </style>
+    {% for message in get_flashed_messages() %}
+        <center><p style="color: green;">{{ message }}</p></center>
+    {% endfor %}
+    <div class="welcome">
+        <h1 id="welcome">Welcome to Study Space Reservations!</h1>
+        <h3 id="description">Click on one of the links above to get started.</h3>
+        <img id="img" width = "300" height = "100" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUqVVflX1m8CqScungJ64G35CcsUiQd9Vdhw&usqp=CAU" alt =" A study space"/>
+    </div>
+{% endblock %}
