@@ -23,15 +23,20 @@ conn = db.connect()
 cursor = conn.cursor()
 conn.autocommit = True
 counter = 3
+users=['joe@hawk.iit.edu']
 
 def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
     query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{time.time()}', '{start_time}', '{end_time}')"
     cursor.execute(query)
     conn.commit()
 
-# @app.before_request
-# def before_request():
-    
+@app.before_request
+def before_request():
+    if 'username' in session:
+        user =[x for x in users if x == session['username']][0]
+        g.user = user
+    else:
+        g.user = None
     
     # #check if user is in session and put it in 'g'
     # g.user = None
@@ -54,18 +59,47 @@ def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_si
 
 @app.route('/')
 def home():
-    return render_template('headerfooter.html')
+
+    return render_template('mainpage.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    session.clear()
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if not username == users[0] and not password == '123':
+            flash("Invalid username or password")
+            return redirect(url_for('login'))
+        session['username'] = users[0]
+        flash("You have been logged in!")
+        return redirect(url_for('home'))
+    return render_template('login.html')
+
+@app.route('/create-account')
+def create_account():
+    return render_template('account-creation.html')
 
 @app.route('/rooms', methods=['POST', 'GET'])
 def rooms():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
     return render_template('rooms.html')
 
 @app.route('/room_info.html', methods=['POST', 'GET'])
 def room():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
     return render_template('room_info.html')
 
 @app.route('/confirmation.html', methods=['POST', 'GET'])
 def confirm():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
     if request.method == 'POST':
         size = request.form.get("groupsize")
         time = request.form.get("time")

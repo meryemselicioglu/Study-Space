@@ -8,8 +8,11 @@
     <title>IPRO Group J</title>
   </head>
     <body style="text-align: center;margin-top: 5%;">
-        <h1>Success!!!!</h1>
-        Room Name: 
-        Start Time: 
-        End Time: 
+      {% for message in get_flashed_messages() %}
+            <center><p style="color: red;">{{ message }}</p></center>
+      {% endfor %}
+      <h1>Success!!!!</h1>
+      Room Name: 
+      Start Time: 
+      End Time: 
     </body>

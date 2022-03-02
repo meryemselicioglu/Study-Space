@@ -34,6 +34,9 @@
         }
     </script>
     <center> <h1> Reserve A Room </h1> </center> 
+    {% for message in get_flashed_messages() %}
+        <center><p style="color: red;">{{ message }}</p></center>
+    {% endfor %}
     <form>
         <div class="rooms"> 
             <button id="room1" onclick="relay(this.id)" type="reset">
