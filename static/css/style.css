@@ -2,3 +2,20 @@ Body {
     font-family: Calibri, Helvetica, sans-serif;
     background-color: white;
 }
+
+#title {
+    margin:auto;
+    text-align:center;
+    padding-bottom: 2%;
+}
+
+.links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#footertext {
+    padding-top: 10%;
+    margin:auto;
+    text-align:center;
+}

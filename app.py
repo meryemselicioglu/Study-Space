@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 import psycopg2
 from database.DBConnection import *
 from database.User import *
@@ -26,7 +26,10 @@ counter = 3
 users=['joe@hawk.iit.edu']
 
 def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
-    query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{time.time()}', '{start_time}', '{end_time}')"
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{current_time}', '{start_time}', '{end_time}')"
     cursor.execute(query)
     conn.commit()
 
@@ -64,17 +67,17 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    session.clear()
+    #session.clear()
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if not username == users[0] and not password == '123':
-            flash("Invalid username or password")
-            return redirect(url_for('login'))
-        session['username'] = users[0]
-        flash("You have been logged in!")
-        return redirect(url_for('home'))
+        if username == users[0] and password == '123':
+            session['username'] = users[0]
+            flash("You have been logged in!")
+            return redirect(url_for('home'))
+        flash("Invalid username or password")
+        return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/create-account')
@@ -122,5 +125,5 @@ def confirm():
     return render_template('confirmation.html')    
 
 if __name__ == "__main__":
-    app.static_folder='resources'
+    app.static_folder='static'
     app.run(debug=True)
