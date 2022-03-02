@@ -34,7 +34,7 @@ College students that need an easy way to find a place to study on campus, Colle
      align="right"
      />
   - Name
-    - Mahmoud El Toukhi 
+    - Edmund Toukhi 
   - Background
     - Administrator
   - Goal
