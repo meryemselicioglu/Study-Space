@@ -27,7 +27,7 @@ def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_si
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{current_time}', '{start_time}', '{end_time}')"
+    query = "insert into reservations values ({}, {}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(reserve_id, user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
@@ -39,21 +39,21 @@ def before_request():
     else:
         g.user = None
    
-    query = ''
-    cursor.execute(query)
-    conn.commit()
-    result_users = cursor.fetchall()
+    # query = ''
+    # cursor.execute(query)
+    # conn.commit()
+    # result_users = cursor.fetchall()
     
-    users_logged_in = [usr for usr in result_users if usr[1] == session['email']]
-    if users_logged_in:
-         logged_in_user = users_logged_in[0]
-         g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
+    # users_logged_in = [usr for usr in result_users if usr[1] == session['email']]
+    # if users_logged_in:
+    #      logged_in_user = users_logged_in[0]
+    #      g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
 
-@app.teardown_request
-def after_request(error=None):
-    conn.close()
-    if error:
-         print(str(error))
+# @app.teardown_request
+# def after_request(error=None):
+#     conn.close()
+#     if error:
+#          print(str(error))
 
 
 @app.route('/')
