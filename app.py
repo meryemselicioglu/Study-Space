@@ -30,6 +30,13 @@ def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_si
     cursor.execute(query)
     conn.commit()
 
+def get_user(email):
+    query = f"select password from users where email='{email}';"
+    print(f"select password from users where email='{email}';")
+    cursor.execute(query)
+    password = cursor.fetchone()[0][0]
+    return password
+
 @app.before_request
 def before_request():
     if 'username' in session:
@@ -64,15 +71,16 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    session.clear()
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if not username == users[0] and not password == '123':
+        db_password = get_user(username)
+        if db_password is None or password != db_password:
             flash("Invalid username or password")
+            print("Test")
             return redirect(url_for('login'))
-        session['username'] = users[0]
+        session['username'] = username
         flash("You have been logged in!")
         return redirect(url_for('home'))
     return render_template('login.html')
