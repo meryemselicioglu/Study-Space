@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 import psycopg2
 from database.DBConnection import *
 from database.User import *
@@ -31,18 +32,27 @@ def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_si
     cursor.execute(query)
     conn.commit()
 
+def add_user(f_name, l_name, email, phone, password):
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    query = "insert into users values ('{}', '{}', '{}', '{}', '{}')".format(f_name, l_name, email, phone, password)
+    cursor.execute(query)
+    conn.commit()
+
 def get_user(email):
     query = f"select password from users where email='{email}';"
     print(f"select password from users where email='{email}';")
     cursor.execute(query)
-    password = cursor.fetchone()[0][0]
-    return password
+    password = cursor.fetchone()
+    if(password == None):
+        return None
+    return password[0]
 
 @app.before_request
 def before_request():
     if 'username' in session:
-        user =[x for x in users if x == session['username']][0]
-        g.user = user
+        g.user = session['username']
     else:
         g.user = None
    
@@ -70,27 +80,66 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    #session.clear()
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
 
         db_password = get_user(username)
-        if db_password is None or password != db_password:
-            flash("Invalid username or password")
-            print("Test")
+
+        if session.get('timeout'):
+            timestart = session['timeout']
+            timenow = time.time()
+            if((timenow - timestart) < 300):
+                flash(("You are locked out for " + str(int((300 - (timenow - timestart))/60)) +  " minutes."))
+                return redirect(url_for('login'))
+
+        if not session.get('attempts'):
+            session['attempts'] = 0
+        elif session['attempts'] >= 10:
+            session['attempts'] = 0
+            session['timeout'] = time.time()
+            flash("TOO MANY ATTEMPTS, you are now locked out for 5 minutes.")
+            return redirect(url_for('login'))
+
+        if db_password is None:
+            session['attempts'] += 1
+            flash("Invalid username")
+            return redirect(url_for('login'))
+        elif password != db_password:
+            session['attempts'] += 1
+            flash("Invalid password")
             return redirect(url_for('login'))
         session['username'] = username
         flash("You have been logged in!")
         return redirect(url_for('home'))
     return render_template('login.html')
 
-@app.route('/create-account')
+@app.route('/log-out')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/create-account', methods=['POST'])
 def create_account():
-    return render_template('account-creation.html')
+    if request.method == 'POST':
+        uni = request.form.get('University')
+        uni_id = request.form.get('University ID')
+        email = request.form.get('email')
+        f_name = request.form.get('First Name')
+        l_name = request.form.get('Last Name')
+        password = request.form.get('password')
+        password_2 = request.form.get('re-enter password')
+        phone = request.form.get('Phone number')
+
+        add_user(f_name, l_name, email, phone, password)
+        
+        flash("Account created! Please log in!")
+        return redirect(url_for('login'))
+    return render_template('createAccount.html')
 
 @app.route('/rooms', methods=['POST', 'GET'])
 def rooms():
+    session.clear()
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
