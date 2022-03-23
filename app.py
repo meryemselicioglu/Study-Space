@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 import psycopg2
 from database.DBConnection import *
 from database.User import *
@@ -16,8 +16,6 @@ from flask import (
 
 app = Flask(__name__)
 app.secret_key = 'gpd'
-#conn, cursor = None
-#setup db connection
 db = DBConnection('studyspacesboss', 'IPRO497gpd!!', 'studyspacesdbserver.postgres.database.azure.com', 5432, 'postgres')
 conn = db.connect()
 cursor = conn.cursor()
@@ -26,7 +24,10 @@ counter = 3
 users=['joe@hawk.iit.edu']
 
 def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
-    query = f"insert into reservations values ({reserve_id}, {user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{time.time()}', '{start_time}', '{end_time}')"
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    query = "insert into reservations values ({}, {}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(reserve_id, user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
@@ -44,9 +45,7 @@ def before_request():
         g.user = user
     else:
         g.user = None
-    
-    # #check if user is in session and put it in 'g'
-    # g.user = None
+   
     # query = ''
     # cursor.execute(query)
     # conn.commit()
@@ -54,14 +53,14 @@ def before_request():
     
     # users_logged_in = [usr for usr in result_users if usr[1] == session['email']]
     # if users_logged_in:
-    #     logged_in_user = users_logged_in[0]
-    #     g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
+    #      logged_in_user = users_logged_in[0]
+    #      g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
 
 # @app.teardown_request
 # def after_request(error=None):
 #     conn.close()
 #     if error:
-#         print(str(error))
+#          print(str(error))
 
 
 @app.route('/')
@@ -71,6 +70,7 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    #session.clear()
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -130,5 +130,5 @@ def confirm():
     return render_template('confirmation.html')    
 
 if __name__ == "__main__":
-    app.static_folder='resources'
+    app.static_folder='static'
     app.run(debug=True)
