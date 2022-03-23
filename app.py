@@ -36,6 +36,13 @@ def get_rooms(address, no_of_people, isAvailable, start, end, building, name):
     cursor.execute(query)
     conn.commit()
 
+def get_user(email):
+    query = f"select password from users where email='{email}';"
+    print(f"select password from users where email='{email}';")
+    cursor.execute(query)
+    password = cursor.fetchone()[0][0]
+    return password
+
 @app.before_request
 def before_request():
     if 'username' in session:
@@ -73,12 +80,14 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if username == users[0] and password == '123':
-            session['username'] = users[0]
-            flash("You have been logged in!")
-            return redirect(url_for('home'))
-        flash("Invalid username or password")
-        return redirect(url_for('login'))
+        db_password = get_user(username)
+        if db_password is None or password != db_password:
+            flash("Invalid username or password")
+            print("Test")
+            return redirect(url_for('login'))
+        session['username'] = username
+        flash("You have been logged in!")
+        return redirect(url_for('home'))
     return render_template('login.html')
 
 @app.route('/create-account')
