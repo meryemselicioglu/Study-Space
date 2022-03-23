@@ -73,30 +73,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td><h4> Michal Landa 
-              <button type="button" class="btn btn-lg btn-primary">Edit</button>
-              <button type="button" class="btn btn-lg btn-primary">Delete</button>
-              <button type="button" class="btn btn-lg btn-primary"><a href="room_info.html">Reservations</a></button>
-            </h4></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><h4> Susan Marge 
-              <button type="button" class="btn btn-lg btn-primary">Edit</button>
-              <button type="button" class="btn btn-lg btn-primary">Delete</button>
-              <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-            </h4></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><h4> Rocky Snake 
-              <button type="button" class="btn btn-lg btn-primary">Edit</button>
-              <button type="button" class="btn btn-lg btn-primary">Delete</button>
-              <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-            </h4></td>
-          </tr>
+          {% for user in users %}
+            <tr>
+              <td>1</td>
+              <td><h4> {{ user[1] }} {{ user[2] }} 
+                <button type="button" class="btn btn-lg btn-primary">Edit</button>
+                <button type="button" class="btn btn-lg btn-primary">Delete</button>
+                <button type="button" class="btn btn-lg btn-primary"><a href="room_info.html">Reservations</a></button>
+                <p>Email: {{ user[3] }}</p>
+              </h4></td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </p>

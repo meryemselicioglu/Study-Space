@@ -24,14 +24,15 @@ conn.autocommit = True
 counter = 3
 users=['joe@hawk.iit.edu']
 
-def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
+def add_reservation(user_id, room_id, equipment_id, status, group_size, start_time, end_time):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = "insert into reservations values ({}, {}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(reserve_id, user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
+    query = f"insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{current_time}', '{start_time}', '{end_time}')"
     cursor.execute(query)
     conn.commit()
 
+<<<<<<< HEAD
 def add_user(f_name, l_name, email, phone, password):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -40,6 +41,27 @@ def add_user(f_name, l_name, email, phone, password):
     cursor.execute(query)
     conn.commit()
 
+=======
+def add_room(address, no_of_people, isAvailable, start, end, building, name):
+    query = f"insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{address}', {no_of_people}, '{isAvailable}', '{start}', '{end}', '{building}', '{name}')"
+    cursor.execute(query)
+    conn.commit()
+
+def get_rooms():
+    query = "select * from rooms"
+    cursor.execute(query)
+    conn.commit()
+
+    return cursor.fetchall()
+
+def get_users():
+    query = "select * from users"
+    cursor.execute(query)
+    conn.commit()
+
+    return cursor.fetchall()
+
+>>>>>>> 441b9fa7dca6736bb856fd3079b03187970e904b
 def get_user(email):
     query = f"select password from users where email='{email}';"
     print(f"select password from users where email='{email}';")
@@ -175,8 +197,28 @@ def confirm():
         time = time.split("-")
         start = time[0]
         end = time[1]
-        add_reservation(3, 3, 3, 3, 'reserved', int(size), start, end)
+        add_reservation(3, 3, 3, 'reserved', int(size), start, end)
     return render_template('confirmation.html')    
+
+@app.route('/adminrooms.html')
+def adminrooms():
+    # if not g.user:
+    #     flash("You must login first")
+    #     return redirect(url_for('login'))
+
+    rooms = get_rooms()
+
+    return render_template('adminrooms.html', rooms=rooms)
+
+@app.route('/adminusers.html')
+def adminusers():
+    # if not g.user:
+    #     flash("You must login first")
+    #     return redirect(url_for('login'))
+
+    users = get_users()
+    
+    return render_template('adminusers.html', users=users)
 
 if __name__ == "__main__":
     app.static_folder='static'
