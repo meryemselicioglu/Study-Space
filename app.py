@@ -23,11 +23,16 @@ conn.autocommit = True
 counter = 3
 users=['joe@hawk.iit.edu']
 
-def add_reservation(reserve_id, user_id, room_id, equipment_id, status, group_size, start_time, end_time):
+def add_reservation(user_id, room_id, equipment_id, status, group_size, start_time, end_time):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = "insert into reservations values ({}, {}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(reserve_id, user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
+    query = f"insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{current_time}', '{start_time}', '{end_time}')"
+    cursor.execute(query)
+    conn.commit()
+
+def get_rooms(address, no_of_people, isAvailable, start, end, building, name):
+    query = f"insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{address}', {no_of_people}, '{isAvailable}', '{start}', '{end}', '{building}', '{name}')"
     cursor.execute(query)
     conn.commit()
 
@@ -117,7 +122,7 @@ def confirm():
         time = time.split("-")
         start = time[0]
         end = time[1]
-        add_reservation(3, 3, 3, 3, 'reserved', int(size), start, end)
+        add_reservation(3, 3, 3, 'reserved', int(size), start, end)
     return render_template('confirmation.html')    
 
 if __name__ == "__main__":
