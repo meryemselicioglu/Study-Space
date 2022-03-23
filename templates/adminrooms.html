@@ -73,42 +73,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td><h4> Room A 
-            <button type="button" class="btn btn-lg btn-primary">Edit</button>
-            <button type="button" class="btn btn-lg btn-primary">Delete</button>
-            <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-            <p>Occupied: Yes </p>
-            <p>Building: Library</p>
-            <p>Hours: 7:00AM-10:PM</p>
-            </h4>
-          </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><h4> Room B
+          {% for room in rooms %}
+            <tr>
+              <td>1</td>
+              <td><h4> Room {{ room[7] }}
               <button type="button" class="btn btn-lg btn-primary">Edit</button>
               <button type="button" class="btn btn-lg btn-primary">Delete</button>
               <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-              <p>Occupied: No </p>
-              <p>Building: Library</p>
-              <p>Hours: 7:00AM-10:PM</p>
+              <p>Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
+              <p>Building: {{ room[6] }}</p>
+              <p>Hours: {{ room[4] }} - {{ room[5] }}</p>
               </h4>
             </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><h4> Room C 
-              <button type="button" class="btn btn-lg btn-primary">Edit</button>
-              <button type="button" class="btn btn-lg btn-primary">Delete</button>
-              <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-              <p>Occupied: Yes </p>
-              <p>Building: Library</p>
-              <p>Hours: 7:00AM-10:PM</p>
-              </h4>
-            </td>
-          </tr>
+            </tr>
+          {% endfor %}
+          
         </tbody>
       </table>
     </p>
