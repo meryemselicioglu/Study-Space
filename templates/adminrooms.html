@@ -1,4 +1,46 @@
+{% extends 'headerfooter.html' %}
 <!doctype html>
+<style>
+  button { 
+        background-color: #FF6F6F; 
+        outline: auto;
+        outline-style: round;
+        border-radius: 5%;
+        color: white; 
+        padding: 15px; 
+        border: none; 
+        cursor: pointer; 
+  }
+
+  .create_button {
+    color: white;
+    width: 165px;
+    font-size: medium;
+  }
+
+  .edit_button {
+    color: white;
+    margin:5em;
+    width: 60px;
+    font-size:small;
+    margin: 5px;
+  }
+
+  .delete_button {
+    color: white;
+    font-size:small;
+    margin: 5px;
+  }
+  .reservations_button {
+    color: white;
+    font-size:small;
+    margin: 5px;
+  }
+  .adjust_line_height {
+    line-height: 2em;
+  }
+
+</style>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -58,31 +100,31 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="row">
+  <div class="row" style="margin-left: 10px;">
     <p>
       <div class="col-md-1"><h3></h3></div>
-      <div class="col-md-2"><h3>Study Room</h3></div>
-      <button type="button" class="btn btn-lg btn-primary">Create New Room</button>
+      <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
+      <button type="button" class="create_button" style="margin-left: 10px;">Create New Room</button>
     </p>
     <p>
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Room Name</th>
+            <th style="font-size: medium;">Room Name</th>
           </tr>
         </thead>
         <tbody>
-          {% for room in rooms %}
+            {% for room in rooms %}
             <tr>
-              <td>1</td>
+              <td style="font-size: medium;">1.</td>
               <td><h4> Room {{ room[7] }}
-              <button type="button" class="btn btn-lg btn-primary">Edit</button>
-              <button type="button" class="btn btn-lg btn-primary">Delete</button>
-              <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-              <p>Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
-              <p>Building: {{ room[6] }}</p>
-              <p>Hours: {{ room[4] }} - {{ room[5] }}</p>
+              <button type="button" style="margin-left: 150px;" class="edit_button">Edit</button>
+              <button type="button" class="delete_button">Delete</button>
+              <button type="button" class="reservations_button">Reservations</button>
+              <p class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
+              <p class="adjust_line_height">Building: {{ room[6] }}</p>
+              <p class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</p>
               </h4>
             </td>
             </tr>
