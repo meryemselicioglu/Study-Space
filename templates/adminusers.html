@@ -13,8 +13,9 @@
 
   .create_button {
     color: white;
-    width: 165px;
+    width:fit-content;
     font-size: medium;
+    margin-left: 75px;
   }
 
   .edit_button {
@@ -102,9 +103,8 @@
   </nav>
   <div class="row" style="margin: 8px;">
     <p>
-      <div class="col-md-1"><h3></h3></div>
-      <div class="col-md-2"><h3 style="font-size:xx-large;">Users</h3></div>
-      <button type="button" class="text_color" class="create_button">Create a New User</button>
+      <div class="col-md-2"><h3 style="font-size:xx-large; margin-left: 20px;">Users</h3></div>
+      <button type="button" class="create_button">Create a New User</button>
     </p>
     <p>
       <table class="table">
@@ -117,7 +117,7 @@
         <tbody>
           {% for user in users %}
             <tr>
-              <td>1</td>
+              <td style="font-size: medium;">1.</td>
               <td><h4> {{ user[1] }} {{ user[2] }} 
                 <button type="button" style="margin-left: 5em;" class="edit_button">Edit</button>
                 <button type="button" class="delete_button">Delete</button>
