@@ -1,3 +1,4 @@
+{% extends 'headerfooter.html' %}
 <!doctype html>
 <style>
   button { 
@@ -118,7 +119,7 @@
             <tr>
               <td style="font-size: medium;">1.</td>
               <td><h4> Room {{ room[7] }}
-              <button type="button" class="edit_button">Edit</button>
+              <button type="button" style="margin-left: 150px;" class="edit_button">Edit</button>
               <button type="button" class="delete_button">Delete</button>
               <button type="button" class="reservations_button">Reservations</button>
               <p class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
