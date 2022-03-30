@@ -1,4 +1,46 @@
+{% extends 'headerfooter.html' %}
 <!doctype html>
+<style>
+  button { 
+    background-color: #FF6F6F; 
+    color: white; 
+    outline: auto;
+    outline-style: round;
+    border-radius: 5%;
+    padding: 15px; 
+    cursor: pointer; 
+  }
+
+  .create_button {
+    color: white;
+    width: 165px;
+    font-size: medium;
+  }
+
+  .edit_button {
+    color: white;
+    width: 60px;
+    font-size:small;
+    margin: 0px;
+  }
+
+  .delete_button {
+    color: white;
+    font-size:small;
+    margin: 5px;
+  }
+  .reservations_button {
+    color: white;
+    font-size:small;
+    margin: 5px;
+  }
+  .adjust_line_height {
+    line-height: 2em;
+  }
+  .text_color{
+    color: white;
+  }
+</style>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -58,11 +100,11 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div class="row">
+  <div class="row" style="margin: 8px;">
     <p>
       <div class="col-md-1"><h3></h3></div>
-      <div class="col-md-2"><h3>Users</h3></div>
-      <button type="button" class="btn btn-lg btn-primary">Create a New User</button>
+      <div class="col-md-2"><h3 style="font-size:xx-large;">Users</h3></div>
+      <button type="button" class="text_color" class="create_button">Create a New User</button>
     </p>
     <p>
       <table class="table">
@@ -77,10 +119,10 @@
             <tr>
               <td>1</td>
               <td><h4> {{ user[1] }} {{ user[2] }} 
-                <button type="button" class="btn btn-lg btn-primary">Edit</button>
-                <button type="button" class="btn btn-lg btn-primary">Delete</button>
-                <button type="button" class="btn btn-lg btn-primary"><a href="room_info.html">Reservations</a></button>
-                <p>Email: {{ user[3] }}</p>
+                <button type="button" style="margin-left: 5em;" class="edit_button">Edit</button>
+                <button type="button" class="delete_button">Delete</button>
+                <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
+                <p class="adjust_line_height">Email: {{ user[3] }}</p>
               </h4></td>
             </tr>
           {% endfor %}
