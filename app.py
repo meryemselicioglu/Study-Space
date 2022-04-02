@@ -29,7 +29,7 @@ def add_reservation(user_id, room_id, equipment_id, status, group_size, start_ti
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = string.format("insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')", user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
+    query = str.format("insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')", user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
