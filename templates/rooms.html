@@ -30,7 +30,7 @@
             var text = document.getElementById(id).innerHTML;
             text = text.replace(/\s/g, ''); //remove extra spaces
             document.cookie = "roomname=" + text;
-            window.location.href = "room_info.html";
+            window.location.href = "{{ url_for('room') }}";
         }
     </script>
     <center> <h1> Reserve A Room </h1> </center> 

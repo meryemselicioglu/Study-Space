@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {{ JSGlue.include() }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +11,14 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
+    <script>
+      function setadmin(x) {
+        let user1id = document.getElementById("email"+x).innerHTML;
+        let user1 = user1id.substring(7);
+        console.log(user1);
+        window.location.href= Flask.url_for("adminusers", {"user": user1});
+      }
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -61,6 +70,9 @@
   <div class="row">
     <p>
       <div class="col-md-1"><h3></h3></div>
+      {% for message in get_flashed_messages() %}
+        <center><p style="color: green;">{{ message }}</p></center>
+      {% endfor %}
       <div class="col-md-2"><h3>Users</h3></div>
       <button type="button" class="btn btn-lg btn-primary">Create a New User</button>
     </p>
@@ -79,8 +91,9 @@
               <td><h4> {{ user[1] }} {{ user[2] }} 
                 <button type="button" class="btn btn-lg btn-primary">Edit</button>
                 <button type="button" class="btn btn-lg btn-primary">Delete</button>
-                <button type="button" class="btn btn-lg btn-primary"><a href="room_info.html">Reservations</a></button>
-                <p>Email: {{ user[3] }}</p>
+                <button type="button" class="btn btn-lg btn-primary">Reservations</button>
+                <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="btn btn-lg btn-primary">Set Admin</button>
+                <p id="email{{loop.index}}">Email: {{ user[3] }}</p>
               </h4></td>
             </tr>
           {% endfor %}

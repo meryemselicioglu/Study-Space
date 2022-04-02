@@ -1,6 +1,6 @@
 from datetime import datetime
 import time
-import psycopg2
+from flask_jsglue import JSGlue
 from database.DBConnection import *
 from database.User import *
 from flask import (
@@ -16,6 +16,7 @@ from flask import (
 )
 
 app = Flask(__name__)
+jsglue = JSGlue(app)
 app.secret_key = 'gpd'
 db = DBConnection('studyspacesboss', 'IPRO497gpd!!', 'studyspacesdbserver.postgres.database.azure.com', 5432, 'postgres')
 conn = db.connect()
@@ -28,11 +29,10 @@ def add_reservation(user_id, room_id, equipment_id, status, group_size, start_ti
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = f"insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({user_id}, {room_id}, {equipment_id}, '{status}', {group_size}, '{current_time}', '{start_time}', '{end_time}')"
+    query = string.format("insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')", user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
-<<<<<<< HEAD
 def add_user(f_name, l_name, email, phone, password):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -41,7 +41,6 @@ def add_user(f_name, l_name, email, phone, password):
     cursor.execute(query)
     conn.commit()
 
-=======
 def add_room(address, no_of_people, isAvailable, start, end, building, name):
     query = f"insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{address}', {no_of_people}, '{isAvailable}', '{start}', '{end}', '{building}', '{name}')"
     cursor.execute(query)
@@ -61,15 +60,19 @@ def get_users():
 
     return cursor.fetchall()
 
->>>>>>> 441b9fa7dca6736bb856fd3079b03187970e904b
 def get_user(email):
-    query = f"select password from users where email='{email}';"
-    print(f"select password from users where email='{email}';")
+    query = f"select password from users where email='{email}'"
+    print(f"select password from users where email='{email}'")
     cursor.execute(query)
     password = cursor.fetchone()
     if(password == None):
         return None
     return password[0]
+
+def set_admin(user):
+    query = f"update users set isadmin = true where email = '{user}'"
+    cursor.execute(query)
+    conn.commit()
 
 @app.before_request
 def before_request():
@@ -161,20 +164,19 @@ def create_account():
 
 @app.route('/rooms', methods=['POST', 'GET'])
 def rooms():
-    session.clear()
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
     return render_template('rooms.html')
 
-@app.route('/room_info.html', methods=['POST', 'GET'])
+@app.route('/room_info', methods=['POST', 'GET'])
 def room():
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
     return render_template('room_info.html')
 
-@app.route('/confirmation.html', methods=['POST', 'GET'])
+@app.route('/confirmation', methods=['POST', 'GET'])
 def confirm():
     if not g.user:
         flash("You must login first")
@@ -200,7 +202,7 @@ def confirm():
         add_reservation(3, 3, 3, 'reserved', int(size), start, end)
     return render_template('confirmation.html')    
 
-@app.route('/adminrooms.html')
+@app.route('/adminrooms')
 def adminrooms():
     # if not g.user:
     #     flash("You must login first")
@@ -210,14 +212,15 @@ def adminrooms():
 
     return render_template('adminrooms.html', rooms=rooms)
 
-@app.route('/adminusers.html')
+@app.route('/adminusers', methods=['POST', 'GET'])
 def adminusers():
     # if not g.user:
     #     flash("You must login first")
     #     return redirect(url_for('login'))
-
+    if request.args:
+        set_admin(request.args.get("user"))
+        flash(request.args.get("user")+" is now an admin")
     users = get_users()
-    
     return render_template('adminusers.html', users=users)
 
 if __name__ == "__main__":
