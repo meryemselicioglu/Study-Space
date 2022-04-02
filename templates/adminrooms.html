@@ -1,3 +1,4 @@
+{% extends 'headerfooter.html' %}
 <!doctype html>
 <style>
   button { 
@@ -15,6 +16,7 @@
     color: white;
     width: 165px;
     font-size: medium;
+    margin-left: 125px;
   }
 
   .edit_button {
@@ -101,9 +103,9 @@
   </nav>
   <div class="row" style="margin-left: 10px;">
     <p>
-      <div class="col-md-1"><h3></h3></div>
+      
       <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
-      <button type="button" class="create_button" style="margin-left: 10px;">Create New Room</button>
+      <button type="button" class="create_button">Create New Room</button>
     </p>
     <p>
       <table class="table">
@@ -118,7 +120,7 @@
             <tr>
               <td style="font-size: medium;">1.</td>
               <td><h4> Room {{ room[7] }}
-              <button type="button" class="edit_button">Edit</button>
+              <button type="button" style="margin-left: 150px;" class="edit_button">Edit</button>
               <button type="button" class="delete_button">Delete</button>
               <button type="button" class="reservations_button">Reservations</button>
               <p class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
