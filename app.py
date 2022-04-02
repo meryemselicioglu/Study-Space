@@ -29,7 +29,7 @@ def add_reservation(user_id, room_id, equipment_id, status, group_size, start_ti
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = str.format("insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')", user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
+    query = "insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
@@ -42,7 +42,7 @@ def add_user(f_name, l_name, email, phone, password):
     conn.commit()
 
 def add_room(address, no_of_people, isAvailable, start, end, building, name):
-    query = f"insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{address}', {no_of_people}, '{isAvailable}', '{start}', '{end}', '{building}', '{name}')"
+    query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{}', {}, '{}', '{}', '{}', '{}', '{}')".format(address, no_of_people, isAvailable, start, end, building, name)
     cursor.execute(query)
     conn.commit()
 
@@ -61,8 +61,8 @@ def get_users():
     return cursor.fetchall()
 
 def get_user(email):
-    query = f"select password from users where email='{email}'"
-    print(f"select password from users where email='{email}'")
+    query = "select password from users where email='{}'".format(email)
+    print("select password from users where email='{}'".format(email))
     cursor.execute(query)
     password = cursor.fetchone()
     if(password == None):
@@ -70,7 +70,7 @@ def get_user(email):
     return password[0]
 
 def set_admin(user):
-    query = f"update users set isadmin = true where email = '{user}'"
+    query = "update users set isadmin = true where email = '{}'".format(user)
     cursor.execute(query)
     conn.commit()
 
