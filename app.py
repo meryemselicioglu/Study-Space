@@ -32,7 +32,6 @@ def add_reservation(user_id, room_id, equipment_id, status, group_size, start_ti
     cursor.execute(query)
     conn.commit()
 
-<<<<<<< HEAD
 def add_user(f_name, l_name, email, phone, password):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -41,7 +40,6 @@ def add_user(f_name, l_name, email, phone, password):
     cursor.execute(query)
     conn.commit()
 
-=======
 def add_room(address, no_of_people, isAvailable, start, end, building, name):
     query = f"insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{address}', {no_of_people}, '{isAvailable}', '{start}', '{end}', '{building}', '{name}')"
     cursor.execute(query)
@@ -61,7 +59,6 @@ def get_users():
 
     return cursor.fetchall()
 
->>>>>>> 441b9fa7dca6736bb856fd3079b03187970e904b
 def get_user(email):
     query = f"select password from users where email='{email}';"
     print(f"select password from users where email='{email}';")
@@ -77,23 +74,6 @@ def before_request():
         g.user = session['username']
     else:
         g.user = None
-   
-    # query = ''
-    # cursor.execute(query)
-    # conn.commit()
-    # result_users = cursor.fetchall()
-    
-    # users_logged_in = [usr for usr in result_users if usr[1] == session['email']]
-    # if users_logged_in:
-    #      logged_in_user = users_logged_in[0]
-    #      g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
-
-# @app.teardown_request
-# def after_request(error=None):
-#     conn.close()
-#     if error:
-#          print(str(error))
-
 
 @app.route('/')
 def home():
@@ -153,6 +133,22 @@ def create_account():
         password_2 = request.form.get('re-enter password')
         phone = request.form.get('Phone number')
 
+        if password != password_2:
+            return "not same password"
+        if len(password) < 6:
+            return "too short"
+        if "password" in password or "12345678" in password or "qwerty" in password:
+            return "too common"
+        if uni in password or f_name in password or l_name in password or phone in password:
+            return "too personal"
+        email_split = email.split('@')
+        if len(email_split) != 2:
+            return "bad email"
+        elif email_split[1][-3:] != ".com" | email_split[1][-3:] != ".net" | email_split[1][-3:] != ".gov" | email_split[1][-3:] != ".edu":
+            return "bad email"
+        elif len(phone) != 10:
+            return "bad phone number"
+
         add_user(f_name, l_name, email, phone, password)
         
         flash("Account created! Please log in!")
@@ -161,7 +157,6 @@ def create_account():
 
 @app.route('/rooms', methods=['POST', 'GET'])
 def rooms():
-    session.clear()
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
