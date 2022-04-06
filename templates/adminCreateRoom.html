@@ -3,24 +3,25 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Create Room Page </title>
+    
 <style> 
 Body {
   font-family: Calibri, Helvetica, sans-serif;
   background-color: white;
 }
 button { 
-        background-color: #FF6F6F; 
-        width: 25%;
+       background-color: #FF6F6F; 
+       width: 25%;
         color: white; 
         padding: 15px; 
         margin: 10px 0px; 
         border: none; 
         cursor: pointer; 
-        } 
+         } 
  form { 
         border: 3px solid #f1f1f1; 
     } 
- input[type=text], input[type=password] { 
+ input[type=text], input[type=dropdown] { 
         width: 100%; 
         margin: 8px 0;
         padding: 12px 20px; 
@@ -41,13 +42,31 @@ button {
  .container { 
         padding: 25px; 
         background-color: white;
-    } 
+    }
+
+.dropdown{
+
+        display:none;
+    }
+
+.room_dropdown li:hover .dropdown{
+
+    display:block;
+    position : absolute;
+    background : #c0b9b9;
+    margin-top : 0 px;
+    margin-left: 0 px;
+
+}
+
+    
+
 </style> 
 </head>  
 <body>  
     <center> <h1> Create New Room </h1> </center> 
     <form>
-        <div class="container"> 
+        <div class="container"></div> 
             <label>Room name : </label> 
             <input type="text" placeholder="Enter a Name for this Room" name="Room Name" required>
             <label>Building name: </label> 
@@ -55,15 +74,66 @@ button {
             <label>Address : </label> 
             <input type="text" placeholder="Enter the Address of the building" name="Building address" required>
             <label>Capacity (number of people) : </label> 
-            <input type="text" placeholder="Enter the Maximum number of people" name="Max Number of Poeple" required>
+            <div class = "room_dropdown">
+            <li><a href="#"><input type="dropdown" placeholder="Enter the Maximum number of people" name="Max Number of Poeple" required></a>
+            <div class="dropdown">
+                <ul>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li><a href="#">9</a></li>
+                    <li><a href="#">10</a></li>
+
+                </ul>
+                </div>
+            </li>
+                  
             <label>Is available? </label> 
-            <input type="text" placeholder="Is this room currently available" name="Availability" required>
+            <li><a href="#"><input type="dropdown" placeholder="Is this room currently available" name="Availability" required></a>
+            <div class="dropdown">
+                <ul>
+                    <li><a href="#">Yes</a></li>
+                    <li><a href="#">No</a></li>
+                    
+                </ul>
+                </div>
+            </li>
             <label>Start-time : </label> 
-            <input type="password" placeholder="Enter When This Room Can Be Reserved" name="Start-Time" required>
+            <li><a href="#"><input type="dropdown" placeholder="Enter When This Room Can Be Reserved" name="Start-Time" required></a>
+            <div class="dropdown">
+                <ul>
+                    <li><a href="#">8am</a></li>
+                    
+                </ul>
+                </div>
+            </li>
             <label>End-Time : </label> 
-            <input type="password" placeholder="Enter When This Room Can No Longer Be Reserved" name="End-Time" required>
+            <li><a href = "#"><input type="dropdown" placeholder="Enter When This Room Can No Longer Be Reserved" name="End-Time" required></a>
+            <div class="dropdown">
+                <ul>
+                    <li><a href="#">10pm</a></li>
+                    
+                </ul>
+                </div>
+            </li>
             <label>Equipment : </label> 
-            <input type="password" placeholder="Enter the Available Equipment in This Room" name="Equipment" required>
+            <li><a href = "#"></a><input type="dropdown" placeholder="Enter the Available Equipment in This Room" name="Equipment" required></a>
+                <div class="dropdown">
+                    <ul>
+                        <li><a href="#">Whiteboard</a></li>
+                        <li><a href="#">Projector</a></li>
+                        <li><a href="#">Markers</a></li>
+                        
+                    </ul>
+                    </div>
+                </li>
+            </div>
+        
             <button type="submit">Create Room</button>  
             <button type="button" class="cancelbtn"> Cancel</button> 
         </div> 
