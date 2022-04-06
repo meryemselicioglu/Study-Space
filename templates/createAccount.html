@@ -46,7 +46,10 @@ button {
 </head>  
 <body>  
     <center> <h1> Create Account </h1> </center> 
-    <form>
+    {% for message in get_flashed_messages() %}
+        <center><p style="color: red;">{{ message }}</p></center>
+    {% endfor %}
+    <form method="post">
         <div class="container"> 
             <label>University name : </label> 
             <input type="text" placeholder="Enter Name Of Your University" name="University" required>

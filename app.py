@@ -127,7 +127,7 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/create-account', methods=['POST'])
+@app.route('/create-account', methods=['POST','GET'])
 def create_account():
     if request.method == 'POST':
         uni = request.form.get('University')
@@ -140,20 +140,30 @@ def create_account():
         phone = request.form.get('Phone number')
 
         if password != password_2:
-            return "not same password"
+            flash("not same password")
+            return redirect(url_for('create_account'))
         if len(password) < 6:
-            return "too short"
+            flash("too short")
+            return redirect(url_for('create_account'))
         if "password" in password or "12345678" in password or "qwerty" in password:
-            return "too common"
+            flash("too common")
+            return redirect(url_for('create_account'))
         if uni in password or f_name in password or l_name in password or phone in password:
-            return "too personal"
+            flash("too personal")
+            return redirect(url_for('create_account'))
         email_split = email.split('@')
         if len(email_split) != 2:
-            return "bad email"
+            flash("bad email")
+            return redirect(url_for('create_account'))
+        if not get_user(email) is None:
+            flash("email alaready exist")
+            return redirect(url_for('create_account'))
         elif email_split[1][-3:] != ".com" | email_split[1][-3:] != ".net" | email_split[1][-3:] != ".gov" | email_split[1][-3:] != ".edu":
-            return "bad email"
+            flash("bad email")
+            return redirect(url_for('create_account'))
         elif len(phone) != 10:
-            return "bad phone number"
+            flash("bad phone number")
+            return redirect(url_for('create_account'))
 
         add_user(f_name, l_name, email, phone, password)
         

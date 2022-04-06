@@ -16,8 +16,22 @@
                 <a href = "{{ url_for('home') }}"> Home</a>
                 <a href = "{{ url_for('rooms') }}"> Reserve Room</a>
                 <a href = "page3.html" target = "_blank"> About Us</a>
-                <a href = "{{ url_for('login') }}"> Login</a>
-                <a href = "{{ url_for('logout') }}"> Log out</a>
+                <a id="login" href = "{{ url_for('login') }}"> Login</a>
+                <a id="logout" href = "{{ url_for('logout') }}"> Hello {{ session.username }}, Log out</a>
+                <script>
+                    function test() {
+                        let user1id = "{{ session.username }}";
+                        if(user1id == ""){
+                            document.getElementById("login").style.visibility="visible";
+                            document.getElementById("logout").style.visibility="hidden";
+                        }
+                        else{
+                            document.getElementById("login").style.visibility="hidden";
+                            document.getElementById("logout").style.visibility="visible";
+                        }
+                    }
+                    document.onload = test();
+                </script>
                 <input type = "text " placeholder = "search" /> 
             </div>
         </header>
