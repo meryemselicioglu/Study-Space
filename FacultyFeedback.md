@@ -80,7 +80,22 @@ Remember the dry run demo/presentation is on 4/19 and the final class presentati
 
 ## Week 12 - Mar 29 ##
 
+J'Veun SCRUM Lead
+	
+- Michael #80 moved to done; fixed Git issues and #77 log out feature; working on #39 (was going to be finished but came out with more syntax checks) Issue found with log in #88 log out don't switch at same time make card to show only the appropriate button. Wrote stories for all reservations #86 and #87
+- Abdallah: #82 on hold and created column.  Completed #83, In progress #84
+- Hana closed #78 in progress #60, #62 and #62
+- Navya working on #73, and #68 on hold for final design but design is finished early tonight
+- Meryam: finished #76 working on #89 and update for currently styling
+- J'Veun: finished #56 and #21, in progress #68
+
 ## Week 13 - Apr 5 ##
+- J'Veun: Finished design work for #68 (not pushed yet).  Working on #61 and #62
+- Hana working #90 but need to modify.  Working on #61, #60 and #62 (mobbing on story) Probably should have broken the stories up so one story per tasks.  
+- Abdallah: Finished #84 (related to #91 and finished #91.  Working on #82 but dependency on #94
+- Meryem: closed #89 working on #71 really vague description and no acceptance criteria
+- Navya: closed #73 and #67 clean-up links (still missing detailed description and acceptance criteria. Working on #68 (shared story; should break up into one-person stories) and will start #75
+- Michal finished #39 and #93 GREAT ACCEPTANCE CRITERIA!!. Created #92 working on #88
 
 ## Week 14 - Apr 12 ##
 
