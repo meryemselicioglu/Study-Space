@@ -1,5 +1,6 @@
 from datetime import datetime
 import time
+import markupsafe
 from flask_jsglue import JSGlue
 from database.DBConnection import *
 from database.User import *
