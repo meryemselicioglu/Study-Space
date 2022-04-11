@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <link rel = "stylesheet" href = "css/style_header_Footer.css">
+        <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <meta name = "description" content = "A place to help you focus on your work and and boost your performance">
+        <title>StudySpace</title>
+       <!-- <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}"> -->
+    </head>
+    <body>
+        <div class = "header">
+        <div class = "center">
+        
+            <h1>
+                Study Space Reservations
+            </h1>
+            <hr/>
+            <div class = "navigation">
+                <a href = "{{ url_for('home') }}"> Home &emsp;</a>
+                <a href = "{{ url_for('rooms') }}"> Reserve Room&emsp;</a>
+                <a href = "page3.html" target = "_blank"> About Us&MediumSpace;</a>
+                <a href = "{{ url_for('login') }}"> Login</a>
+                <a href = "{{ url_for('logout') }}"> Log out</a>
+                <div class = "right"><input type = "text " placeholder = "search" /></div>
+                
+            </div>
+       
+        <div class="container">
+            {% block content %} {% endblock %}
+        </div>
+
+        
+    </div>
+    
+</div>        
+
+    <footer class = "footer">
+        <div class ="row">
+            <div class = "footer-col">
+                <h4>Company</h4>
+              <ul>
+                  <li><a href=""#"">About us</a></li>
+                  <li><a href=""#"">Contact us</a></li>
+                  <li><a href=""#"">Privacy Policy</a></li>
+              </ul>
+            </div> 
+            <div class = "footer-col">
+                <h4>Get Help</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class = "footer-col">
+                <h4> Follow Us</h4>
+                <div class = "social-links">
+                  <ul>
+                      <a href="#"><i class = "fab fa-facebook -f"></i></a>
+                      <a href="#"><i class = "fab fa-instagram"></i></a>
+                  </ul>
+                </div>
+                
+            </div>
+          </div>
+      </div>
+    </footer>
+
+    </body>
+</html>
+
+

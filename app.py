@@ -80,23 +80,6 @@ def before_request():
         g.user = session['username']
     else:
         g.user = None
-   
-    # query = ''
-    # cursor.execute(query)
-    # conn.commit()
-    # result_users = cursor.fetchall()
-    
-    # users_logged_in = [usr for usr in result_users if usr[1] == session['email']]
-    # if users_logged_in:
-    #      logged_in_user = users_logged_in[0]
-    #      g.user = User(logged_in_user[0], logged_in_user[1], logged_in_user[2], logged_in_user[3], logged_in_user[5], logged_in_user[4])
-
-# @app.teardown_request
-# def after_request(error=None):
-#     conn.close()
-#     if error:
-#          print(str(error))
-
 
 @app.route('/')
 def home():
@@ -144,7 +127,7 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/create-account', methods=['POST'])
+@app.route('/create-account', methods=['POST','GET'])
 def create_account():
     if request.method == 'POST':
         uni = request.form.get('University')
@@ -155,6 +138,32 @@ def create_account():
         password = request.form.get('password')
         password_2 = request.form.get('re-enter password')
         phone = request.form.get('Phone number')
+
+        if password != password_2:
+            flash("not same password")
+            return redirect(url_for('create_account'))
+        if len(password) < 6:
+            flash("too short")
+            return redirect(url_for('create_account'))
+        if "password" in password or "12345678" in password or "qwerty" in password:
+            flash("too common")
+            return redirect(url_for('create_account'))
+        if uni in password or f_name in password or l_name in password or phone in password:
+            flash("too personal")
+            return redirect(url_for('create_account'))
+        email_split = email.split('@')
+        if len(email_split) != 2:
+            flash("bad email")
+            return redirect(url_for('create_account'))
+        if not get_user(email) is None:
+            flash("email alaready exist")
+            return redirect(url_for('create_account'))
+        elif email_split[1][-3:] != ".com" | email_split[1][-3:] != ".net" | email_split[1][-3:] != ".gov" | email_split[1][-3:] != ".edu":
+            flash("bad email")
+            return redirect(url_for('create_account'))
+        elif len(phone) != 10:
+            flash("bad phone number")
+            return redirect(url_for('create_account'))
 
         add_user(f_name, l_name, email, phone, password)
         
