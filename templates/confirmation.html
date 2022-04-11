@@ -9,7 +9,7 @@
   </head>
     <body style="text-align: center;margin-top: 5%;">
       {% for message in get_flashed_messages() %}
-            <center><p style="color: red;">{{ message }}</p></center>
+            <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
       {% endfor %}
       <h1>Success!!!!</h1>
       Room Name: 

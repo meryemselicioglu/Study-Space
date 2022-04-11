@@ -116,7 +116,7 @@
       <p>
         <div class="col-md-1"><h3></h3></div>
         {% for message in get_flashed_messages() %}
-          <center><p style="color: green;">{{ message }}</p></center>
+          <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
         {% endfor %}
         <div class="col-md-2"><h3 style="font-size:xx-large; margin-left: 20px;">Users</h3></div>
         <button type="button" class="create_button">Create a New User</button>

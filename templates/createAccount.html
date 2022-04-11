@@ -47,7 +47,7 @@ button {
 <body>  
     <center> <h1> Create Account </h1> </center> 
     {% for message in get_flashed_messages() %}
-        <center><p style="color: red;">{{ message }}</p></center>
+        <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
     {% endfor %}
     <form method="post">
         <div class="container"> 

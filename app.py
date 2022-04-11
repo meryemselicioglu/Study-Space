@@ -126,7 +126,7 @@ def login():
 @app.route('/log-out')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/create-account', methods=['POST','GET'])
 def create_account():
