@@ -41,8 +41,8 @@ def add_user(f_name, l_name, email, phone, password):
     cursor.execute(query)
     conn.commit()
 
-def add_room(address, no_of_people, isAvailable, start, end, building, name):
-    query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{}', {}, '{}', '{}', '{}', '{}', '{}')".format(address, no_of_people, isAvailable, start, end, building, name)
+def add_room(address, no_of_people, isAvailable, start, end, building, name, equipment):
+    query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{}', {}, '{}', '{}', '{}', '{}', '{}', {})".format(address, no_of_people, isAvailable, start, end, building, name, equipment)
     cursor.execute(query)
     conn.commit()
 
@@ -222,6 +222,28 @@ def adminusers():
         flash(request.args.get("user")+" is now an admin")
     users = get_users()
     return render_template('adminusers.html', users=users)
+
+@app.route('/createroom', methods=['POST', 'GET'])
+def createroom():
+    # if not g.user:
+    #     flash("You must login first")
+    #     return redirect(url_for('login'))
+    if request.method == 'POST':
+        roomName = request.form.get('Room Name')
+        buildingName = request.form.get('Building Name')
+        buildingAddress = request.form.get('Building Address')
+        maxNoPpl = request.form.get('Max Number of Poeple')
+        availabilty = request.form.get('Availability')
+        start = request.form.get('Start-Time')
+        end = request.form.get('End-Time')
+        equipment = request.form.get('Equipment')
+        equipment = equipment.split(',')
+
+        add_room(buildingAddress, maxNoPpl, 'True' if availabilty.lower() == 'yes' else 'False', start, end, buildingName, roomName, equipment)
+        flash('Room Created!')
+        return redirect(url_for('adminrooms'))
+    return render_template('adminCreateRoom.html')
+
 
 if __name__ == "__main__":
     app.static_folder='static'
