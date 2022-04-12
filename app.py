@@ -212,6 +212,14 @@ def confirm():
         add_reservation(3, 3, 3, 'reserved', int(size), start, end)
     return render_template('confirmation.html')    
 
+@app.route('/adminpages')
+def adminpages():
+    # if not g.user:
+    #     flash("You must login first")
+    #     return redirect(url_for('login'))
+
+    return render_template("adminpages.html")
+    
 @app.route('/adminrooms')
 def adminrooms():
     # if not g.user:

@@ -1,0 +1,14 @@
+{% extends 'headerfooter.html' %}
+
+{% block content %}
+    <body>
+        <div class="pages"> 
+            <button id="rooms" onclick="{{ url_for('adminrooms') }}" type="button">
+                View or Edit Rooms
+            </button>
+            <button id="users" onclick="{{ url_for('adminusers') }}" type="button">
+                View or Edit Users
+            </button>
+        </div>
+    </body>
+{% endblock %}
