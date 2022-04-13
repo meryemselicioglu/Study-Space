@@ -43,7 +43,7 @@ def add_user(f_name, l_name, email, phone, password):
     conn.commit()
 
 def add_room(address, no_of_people, isAvailable, start, end, building, name, equipment):
-    query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name) values ('{}', {}, '{}', '{}', '{}', '{}', '{}', {})".format(address, no_of_people, isAvailable, start, end, building, name, equipment)
+    query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name, equipment) values ('{}', {}, '{}', '{}', '{}', '{}', '{}', ARRAY {})".format(address, no_of_people, isAvailable, start, end, building, name, equipment)
     cursor.execute(query)
     conn.commit()
 
@@ -259,14 +259,16 @@ def createroom():
         roomName = request.form.get('Room Name')
         buildingName = request.form.get('Building Name')
         buildingAddress = request.form.get('Building Address')
-        maxNoPpl = request.form.get('Max Number of Poeple')
+        maxNoPpl = request.form.get('Capacity')
         availabilty = request.form.get('Availability')
         start = request.form.get('Start-Time')
         end = request.form.get('End-Time')
-        equipment = request.form.get('Equipment')
-        equipment = equipment.split(',')
+        equipment = request.form.getlist('Equipment[]')
 
-        add_room(buildingAddress, maxNoPpl, 'True' if availabilty.lower() == 'yes' else 'False', start, end, buildingName, roomName, equipment)
+        if 'none' in equipment and len(equipment) > 1:
+            equipment.remove('none')
+
+        add_room(buildingAddress, maxNoPpl, 'True' if availabilty == 'yes' else 'False', start, end, buildingName, roomName, equipment)
         flash('Room Created!')
         return redirect(url_for('adminrooms'))
     return render_template('adminCreateRoom.html')

@@ -3,21 +3,26 @@
 {% block content %}
     <style> 
     Body {
-    font-family: Calibri, Helvetica, sans-serif;
-    background-color: white;
+        font-family: Calibri, Helvetica, sans-serif;
+        background-color: white;
     }
-    button1 { 
+    .button1 { 
         background-color: #FF6F6F; 
-        width: 25%;
-            color: white; 
-            padding: 15px; 
-            margin: 10px 0px; 
-            border: none; 
-            cursor: pointer; 
-            } 
+        width: 15%;
+        font-size: 15px;
+        color: white; 
+        padding: 15px; 
+        margin: 10px 0px; 
+        border: none; 
+        cursor: pointer; 
+    } 
+    .bottomButtons{
+        padding-top: 2%;
+    
+    }
     form { 
             border: 3px solid #f1f1f1; 
-        } 
+    } 
     input[type=text], input[type=dropdown] { 
             width: 100%; 
             margin: 8px 0;
@@ -25,58 +30,58 @@
             display: inline-block; 
             border: 2px solid black; 
             box-sizing: border-box; 
-        }
+    }
 
-        box{ 
-            width: 100%; 
-            margin: 8px 0;
-            padding: 12px 20px; 
-            display: inline-block; 
-            border: 2px solid black; 
-            box-sizing: border-box; 
-        }
-    button1:hover { 
-            opacity: 0.7; 
-        } 
+    box{ 
+        width: 100%; 
+        margin: 8px 0;
+        padding: 12px 20px; 
+        display: inline-block; 
+        border: 2px solid black; 
+        box-sizing: border-box; 
+    }
+    .button1:hover { 
+        opacity: 0.7; 
+    } 
     .cancelbtn { 
-            width: auto; 
-            padding: 10px 18px;
-            margin: 10px 5px;
-        } 
+        width: auto; 
+        padding: 10px 18px;
+        margin: 10px 5px;
+    } 
         
     
     .container { 
-            padding: 25px; 
-            background-color: white;
+        padding: 25px; 
+        background-color: white;
     }
 
     .dropbtn {
-    background-color: #e9a6a6;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+        background-color: #e9a6a6;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
     }
 
     .dropdown {
-    position: relative;
-    display: inline-block;
+        position: relative;
+        display: inline-block;
     }
 
     .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
     }
 
     .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
     }
 
     .dropdown-content a:hover {background-color: #ddd;}
@@ -87,87 +92,89 @@
 
     </style> 
     <body>  
-        <center> <h1> Create New Room </h1> </center> 
-        <form>
+        <center> <h1> Create A New Room </h1> </center> 
+        <form method="post">
             <div class="container">
-                <label>Room name : </label> 
+                <label>Room name :</label> 
                 <input type="text" placeholder="Enter a Name for this Room" name="Room Name" required>
-                <label>Building name: </label> 
-                <input type="text" placeholder="Enter the Name of the building" name="Buidling name" required>
-                <label>Address : </label> 
-                <input type="text" placeholder="Enter the Address of the building" name="Building address" required>
-                <label>Capacity (number of people) : </label> 
-                <input type="dropdown" placeholder="Enter the Maximum number of people" name="Max Number of Poeple" required></a>   
-                <p><label>Is available? :  </label> 
+                <label>Building name:</label> 
+                <input type="text" placeholder="Enter the Name of the building" name="Building Name" required>
+                <label>Address :</label> 
+                <input type="text" placeholder="Enter the Address of the building" name="Building Address" required>
+                <label>Capacity (number of people) :</label> 
+                <input type="dropdown" placeholder="Enter the capacity of the room" name="Capacity" required></a>   
+                <p><label>Is it currently available for reservation?</label> 
                 <div class="dropdown">
-                    <button class="dropbtn">Select </button>
+                    <select class="dropbtn" name="available">
                         <div class="dropdown-content">
-                            <a href="#">Yes</a>
-                            <a href="#">No</a>     
-                    </div>
-                    </div>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>     
+                        </div>
+                    </select>
+                </div>
                 </p>
                 <p><label>Start-time : </label> 
                 <div class="dropdown">
-                    <br><button class="dropbtn">Select </button>
+                    <select class="dropbtn" name="Start-Time">
                         <div class="dropdown-content">
-                        <a href="#">6:00am</a>
-                        <a href="#">9:00am</a>
-                        <a href="#">10:00am</a>
-                        <a href="#">11:00am</a>
-                        <a href="#">12:00pm</a>
-                        <a href="#">1:00pm</a>
-                        <a href="#">2:00pm</a>
-                        <a href="#">3:00pm</a>
-                        <a href="#">4:00pm</a>
-                        <a href="#">5:00pm</a>
-                        <a href="#">6:00pm</a>
-                        <a href="#">7:00pm</a>
-                        <a href="#">8:00pm</a>
-                        <a href="#">9:00pm</a>
-                    </div>
-                    </div>
+                            <option value="6:00am">6:00am</option>
+                            <option value="9:00am">9:00am</option>
+                            <option value="10:00am">10:00am</option>
+                            <option value="11:00am">11:00am</option>
+                            <option value="12:00pm">12:00pm</option>
+                            <option value="1:00pm">1:00pm</option>
+                            <option value="2:00pm">2:00pm</option>
+                            <option value="3:00pm">3:00pm</option>
+                            <option value="4:00pm">4:00pm</option>
+                            <option value="5:00pm">5:00pm</option>
+                            <option value="6:00pm">6:00pm</option>
+                            <option value="7:00pm">7:00pm</option>
+                            <option value="8:00pm">8:00pm</option>
+                            <option value="9:00pm">9:00pm</option>
+                        </div>
+                    </select>
+                </div>
                 </p>
                 <p><label>End-Time : </label> 
                 <div class="dropdown">
-                    <br><button class="dropbtn">Select</button>
+                    <select class="dropbtn" name="End-Time">
                         <div class="dropdown-content">
-                        <a href="#">7:00am</a>
-                        <a href="#">8:00am</a>
-                        <a href="#">9:00am</a>
-                        <a href="#">10:00am</a>
-                        <a href="#">11:00am</a>
-                        <a href="#">12:00pm</a>
-                        <a href="#">1:00pm</a>
-                        <a href="#">2:00pm</a>
-                        <a href="#">3:00pm</a>
-                        <a href="#">4:00pm</a>
-                        <a href="#">5:00pm</a>
-                        <a href="#">6:00pm</a>
-                        <a href="#">7:00pm</a>
-                        <a href="#">8:00pm</a>
-                        <a href="#">9:00pm</a>
-                        <a href="#">10:00pm</a>
-                        
-                    </div>
-                    </div>
-                </p>
-                <p><label>Equipment : </label> 
-                    <div class="dropdown">
-                        <br><button class="dropbtn">Select</button>
-                        <div class="dropdown-content">
-                            <a href="#">Whiteboard</a>
-                            <a href="#">Projector</a>
-                            <a href="#">Markers</a>
-                            
+                            <option value="7:00am">7:00am</option>
+                            <option value="8:00am">8:00am</option>
+                            <option value="9:00am">9:00am</option>
+                            <option value="10:00am">10:00am</option>
+                            <option value="11:00am">11:00am</option>
+                            <option value="12:00pm">12:00pm</option>
+                            <option value="1:00pm">1:00pm</option>
+                            <option value="2:00pm">2:00pm</option>
+                            <option value="3:00pm">3:00pm</option>
+                            <option value="4:00pm">4:00pm</option>
+                            <option value="5:00pm">5:00pm</option>
+                            <option value="6:00pm">6:00pm</option>
+                            <option value="7:00pm">7:00pm</option>
+                            <option value="8:00pm">8:00pm</option>
+                            <option value="9:00pm">9:00pm</option>
+                            <option value="10:00pm">10:00pm</option>
                         </div>
-                    
+                    </select>
                 </div>
-            </p>
-                <p>
-                    <br><button1 type="submit">Create Room</button1> 
-                <button1 type="button1" class="cancelbtn"> Cancel</button1> 
                 </p>
+                <p><label>Equipment (Hold down Ctrl (Windows)/Command (Mac) to select multiple items): </label> 
+                    <div class="dropdown">
+                        <select class="dropbtn" name="Equipment[]" multiple>
+                            <div class="dropdown-content">
+                                <option value="none">None</option>
+                                <option value="whiteboard">Whiteboard</option>
+                                <option value="projector">Projector</option>
+                                <option value="markers">Markers</option>
+                                <option value="printer">Printer</option>
+                            </div>
+                        </select>
+                    </div>
+                </p>
+                <div align="right" class="bottomButtons">
+                    <button type="submit" class="button1">Create Room</button> 
+                </div>
             </div> 
         </form>   
     </body>   
