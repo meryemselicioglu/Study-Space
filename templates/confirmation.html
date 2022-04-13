@@ -1,18 +1,13 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'headerfooter.html' %}
 
-    <title>IPRO Group J</title>
-  </head>
-    <body style="text-align: center;margin-top: 5%;">
-      {% for message in get_flashed_messages() %}
-            <center><p style="color: red;">{{ message }}</p></center>
-      {% endfor %}
-      <h1>Success!!!!</h1>
-      Room Name: 
-      Start Time: 
-      End Time: 
-    </body>
+{% block content %}
+  <body style="text-align: center;margin-top: 5%;">
+    {% for message in get_flashed_messages() %}
+          <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
+    {% endfor %}
+    <h1>Success!!!!</h1>
+    Room Name: 
+    Start Time: 
+    End Time: 
+  </body>
+{% endblock %}

@@ -10,10 +10,10 @@
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-            }
+        }
     </style>
     {% for message in get_flashed_messages() %}
-        <center><p style="color: green;">{{ message }}</p></center>
+        <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
     {% endfor %}
     <div class="welcome">
         <h1 id="welcome">Welcome to Study Space Reservations!</h1>

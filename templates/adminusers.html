@@ -1,157 +1,156 @@
 {% extends 'headerfooter.html' %}
-<!doctype html>
-<style>
-  button { 
-    background-color: #FF6F6F; 
-    color: white; 
-    outline: auto;
-    outline-style: round;
-    border-radius: 5%;
-    padding: 15px; 
-    cursor: pointer; 
-  }
 
-  .create_button {
-    color: white;
-    width:fit-content;
-    font-size: medium;
-    margin-left: 75px;
-  }
+{% block content %}
+  <!doctype html>
+  <style>
+    button { 
+      background-color: #FF6F6F; 
+      color: white; 
+      outline: auto;
+      outline-style: round;
+      border-radius: 5%;
+      padding: 15px; 
+      cursor: pointer; 
+    }
 
-  .edit_button {
-    color: white;
-    width: 60px;
-    font-size:small;
-    margin: 0px;
-  }
+    .create_button {
+      color: white;
+      width:fit-content;
+      font-size: medium;
+      margin-left: 75px;
+    }
 
-  .delete_button {
-    color: white;
-    font-size:small;
-    margin: 5px;
-  }
-  .reservations_button {
-    color: white;
-    font-size:small;
-    margin: 5px;
-  }
-  .adjust_line_height {
-    line-height: 2em;
-  }
-  .text_color{
-    color: white;
-  }
-</style>
-<html lang="en">
-  <head>
-    {{ JSGlue.include() }}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    .edit_button {
+      color: white;
+      width: 60px;
+      font-size:small;
+      margin: 0px;
+    }
 
-    <title>IPRO Group J</title>
+    .delete_button {
+      color: white;
+      font-size:small;
+      margin: 5px;
+    }
+    .reservations_button {
+      color: white;
+      font-size:small;
+      margin: 5px;
+    }
+    .adjust_line_height {
+      line-height: 2em;
+    }
+    .text_color{
+      color: white;
+    }
+  </style>
+  <html lang="en">
+    <head>
+      {{ JSGlue.include() }}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <title>IPRO Group J</title>
 
-    <script>
-      function setadmin(x) {
-        let user1id = document.getElementById("email"+x).innerHTML;
-        let user1 = user1id.substring(7);
-        console.log(user1);
-        window.location.href= Flask.url_for("adminusers", {"user": user1});
-      }
-    </script>
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">IPRO Group J</a>
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+      <script>
+        function setadmin(x) {
+          let user1id = document.getElementById("email"+x).innerHTML;
+          let user1 = user1id.substring(7);
+          console.log(user1);
+          window.location.href= Flask.url_for("adminusers", {"user": user1});
+        }
+      </script>
+    </head>
+    <body>
+      <!--
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">IPRO Group J</a>
+            </div>
+        
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
         </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-            </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-            </li>
-        </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <div class="row" style="margin: 8px;">
-    <p>
-      <div class="col-md-1"><h3></h3></div>
-      {% for message in get_flashed_messages() %}
-        <center><p style="color: green;">{{ message }}</p></center>
-      {% endfor %}
-      <div class="col-md-2"><h3 style="font-size:xx-large; margin-left: 20px;">Users</h3></div>
-      <button type="button" class="create_button">Create a New User</button>
-    </p>
-    <p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
+      </nav>
+    -->
+    <div class="row" style="margin: 8px;">
+      <p>
+        <div class="col-md-1"><h3></h3></div>
+        {% for message in get_flashed_messages() %}
+          <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
+        {% endfor %}
+        <div class="col-md-2"><h3 style="font-size:xx-large; margin-left: 20px;">Users</h3></div>
+        <button type="button" class="create_button">Create a New User</button>
+      </p>
+      <p>
+        <table class="table">
+          <thead>
             <tr>
-              <td style="font-size: medium;">1.</td>
-              <td><h4> {{ user[1] }} {{ user[2] }} 
-                <button type="button" class="btn btn-lg btn-primary">Edit</button>
-                <button type="button" class="btn btn-lg btn-primary">Delete</button>
-                <button type="button" class="btn btn-lg btn-primary">Reservations</button>
-                <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="btn btn-lg btn-primary">Set Admin</button>
-                <p id="email{{loop.index}}">Email: {{ user[3] }}</p>
-                <button type="button" style="margin-left: 5em;" class="edit_button">Edit</button>
-                <button type="button" class="delete_button">Delete</button>
-                <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
-                <p class="adjust_line_height">Email: {{ user[3] }}</p>
-              </h4></td>
+              <th>#</th>
+              <th>Name</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </p>
-  </div>
+          </thead>
+          <tbody>
+            {% for user in users %}
+              <tr>
+                <td style="font-size: medium;">1.</td>
+                <td><h4> {{ user[1] }} {{ user[2] }} 
+                  <button type="button" style="margin-left: 5em;" class="edit_button">Edit</button>
+                  <button type="button" class="delete_button">Delete</button>
+                  <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
+                  <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
+                  <p class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</p>
+                </h4></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </p>
+    </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </body>
-</html>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    </body>
+  </html>
+{% endblock %}

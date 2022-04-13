@@ -78,7 +78,7 @@
   <body onload="getName()">
     <p id="loggedin">Logged in: Joe</p>
     {% for message in get_flashed_messages() %}
-      <center><p style="color: #fd3d3d;">{{ message }}</p></center>
+      <center><p id="flashedmessage" style="color: #fd3d3d;">{{ message }}</p></center>
     {% endfor %}
     <h1 class="maininfo" id = "name"></h1>
     

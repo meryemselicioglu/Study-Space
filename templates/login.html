@@ -45,7 +45,7 @@
     <body>  
         <center> <h1> Student Login Form </h1> </center> 
         {% for message in get_flashed_messages() %}
-            <center><p style="color: red;">{{ message }}</p></center>
+            <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
         {% endfor %}
         <form method="post">
             <div class="container"> 
@@ -56,7 +56,7 @@
                 <button type="submit">Login</button> 
                 <input type="checkbox" checked="checked"> Remember me 
                 <button type="button" class="cancelbtn"> Cancel</button> 
-                <a href="#"> Forgot password? </a> 
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> Forgot password? </a> 
                 <a href = "{{ url_for('create_account') }}"> New User</a>
             </div> 
         </form>   

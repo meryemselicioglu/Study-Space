@@ -1,72 +1,107 @@
 {% extends 'headerfooter.html' %}
-<!doctype html>
-<style>
-  button { 
-        background-color: #FF6F6F; 
-        outline: auto;
-        outline-style: round;
-        border-radius: 5%;
-        color: white; 
-        padding: 15px; 
-        border: none; 
-        cursor: pointer; 
-  }
 
-  .create_button {
-    color: white;
-    width: 165px;
-    font-size: medium;
-    margin-left: 125px;
-  }
+{% block content %}
+  <!doctype html>
+  <style>
+    button { 
+          background-color: #FF6F6F; 
+          outline: auto;
+          outline-style: round;
+          border-radius: 5%;
+          color: white; 
+          padding: 15px; 
+          border: none; 
+          cursor: pointer; 
+    }
 
-  .edit_button {
-    color: white;
-    margin:5em;
-    width: 60px;
-    font-size:small;
-    margin: 5px;
-  }
+    .create_button {
+      color: white;
+      width: 165px;
+      font-size: medium;
+      margin-left: 125px;
+    }
 
-  .delete_button {
-    color: white;
-    font-size:small;
-    margin: 5px;
-  }
-  .reservations_button {
-    color: white;
-    font-size:small;
-    margin: 5px;
-  }
-  .adjust_line_height {
-    line-height: 2em;
-  }
+    .edit_button {
+      color: white;
+      margin:5em;
+      width: 60px;
+      font-size:small;
+      margin: 5px;
+    }
 
-</style>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    .delete_button {
+      color: white;
+      font-size:small;
+      margin: 5px;
+    }
+    .reservations_button {
+      color: white;
+      font-size:small;
+      margin: 5px;
+    }
+    .adjust_line_height {
+      line-height: 2em;
+    }
 
-    <title>IPRO Group J</title>
+  </style>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <title>IPRO Group J</title>
 
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">IPRO Group J</a>
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    </head>
+    <body>
+      <!--
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">IPRO Group J</a>
+            </div>
+        
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
         </div>
+<<<<<<< HEAD
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -127,17 +162,49 @@
               <p class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</p>
               </h4>
             </td>
+=======
+      </nav>
+    -->
+    <div class="row" style="margin-left: 10px;">
+      <p>
+        
+        <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
+        <button type="button" class="create_button" href="{{ url_for('createroom') }}">Create New Room</button>
+      </p>
+      <p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="font-size: medium;">Room Name</th>
+>>>>>>> 4178cbb48a2bdf0e510e44e7c019b9d4fb2f37fa
             </tr>
-          {% endfor %}
-          
-        </tbody>
-      </table>
-    </p>
-  </div>
+          </thead>
+          <tbody>
+              {% for room in rooms %}
+              <tr>
+                <td style="font-size: medium;">1.</td>
+                <td><h4> Room {{ room[7] }}
+                <button type="button" style="margin-left: 150px;" class="edit_button">Edit</button>
+                <button type="button" class="delete_button">Delete</button>
+                <button type="button" class="reservations_button">Reservations</button>
+                <p class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
+                <p class="adjust_line_height">Building: {{ room[6] }}</p>
+                <p class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</p>
+                </h4>
+              </td>
+              </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </p>
+    </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </body>
-</html>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    </body>
+  </html>
+{% endblock %}
