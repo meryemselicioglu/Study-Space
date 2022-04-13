@@ -1,12 +1,33 @@
 {% extends 'headerfooter.html' %}
 
 {% block content %}
+    <style>
+        button {
+            background-color: #FF6F6F; 
+            width: 25%;
+            color: white; 
+            padding: 30px; 
+            margin: 10px 0px; 
+            font-size: 30px;
+            width : 400px;
+            border: none; 
+            cursor: pointer;
+        }
+        .pages {
+            margin: auto;
+            width: 50%;
+            justify-content: space-between;
+            display: flex;
+            background-color: rgb(179, 179, 179);
+            padding: 10%;
+        }
+    </style>
     <body>
         <div class="pages"> 
-            <button id="rooms" onclick="{{ url_for('adminrooms') }}" type="button">
+            <button id="rooms" onclick="window.location.href='{{ url_for('adminrooms') }}';" type="button">
                 View or Edit Rooms
             </button>
-            <button id="users" onclick="{{ url_for('adminusers') }}" type="button">
+            <button id="users" onclick="window.location.href='{{ url_for('adminusers') }}';" type="button">
                 View or Edit Users
             </button>
         </div>

@@ -60,7 +60,6 @@
         function setadmin(x) {
           let user1id = document.getElementById("email"+x).innerHTML;
           let user1 = user1id.substring(7);
-          console.log(user1);
           window.location.href= Flask.url_for("adminusers", {"user": user1});
         }
       </script>
@@ -112,14 +111,12 @@
         </div>
       </nav>
     -->
+    {% for message in get_flashed_messages() %}
+            <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
+    {% endfor %}
     <div class="row" style="margin: 8px;">
       <p>
-        <div class="col-md-1"><h3></h3></div>
-        {% for message in get_flashed_messages() %}
-          <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
-        {% endfor %}
-        <div class="col-md-2"><h3 style="font-size:xx-large; margin-left: 20px;">Users</h3></div>
-        <button type="button" class="create_button">Create a New User</button>
+        <div class="col-md-2"><h3 style="font-size:xx-large;">Users</h3></div>
       </p>
       <p>
         <table class="table">
@@ -133,13 +130,16 @@
             {% for user in users %}
               <tr>
                 <td style="font-size: medium;">1.</td>
-                <td><h4> {{ user[1] }} {{ user[2] }} 
-                  <button type="button" style="margin-left: 5em;" class="edit_button">Edit</button>
-                  <button type="button" class="delete_button">Delete</button>
-                  <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
-                  <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
-                  <p class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</p>
-                </h4></td>
+                <td>
+                  <h4>{{ user[1] }} {{ user[2] }}</h4>
+                  <h4 class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</h4>
+                  <div class="ree">
+                    <button type="button" class="edit_button">Edit</button>
+                    <button type="button" class="delete_button">Delete</button>
+                    <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
+                    <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
+                  </div>
+                </td>
               </tr>
             {% endfor %}
           </tbody>

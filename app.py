@@ -75,6 +75,11 @@ def set_admin(user):
     cursor.execute(query)
     conn.commit()
 
+def isAdmin(username):
+    query = "select isadmin from users where email = '{}'".format(username)
+    cursor.execute(query)
+    return cursor.fetchone()[0]
+
 @app.before_request
 def before_request():
     if 'username' in session:
@@ -89,6 +94,7 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    admin = False
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -120,7 +126,10 @@ def login():
             return redirect(url_for('login'))
         session['username'] = username
         flash("You have been logged in!")
-        return redirect(url_for('home'))
+
+        if isAdmin(username):
+            admin = True
+        return redirect(url_for('home', admin=str(admin)))
     return render_template('login.html')
 
 @app.route('/log-out')

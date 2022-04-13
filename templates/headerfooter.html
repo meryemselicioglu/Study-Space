@@ -20,6 +20,7 @@
                     document.getElementById("admin").style.display = "none";
                     document.getElementById("login").innerHTML = "Login";
                     document.getElementById("login").href = Flask.url_for("login");
+                    document.cookie = "admin= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                 }
                 else{
                     document.getElementById("loggedin").innerHTML = "Logged in: {{ session.username }}";
@@ -27,12 +28,28 @@
                     document.getElementById("login").href = Flask.url_for("logout");
                     
                     //admin pages:
-                    let admin = "{{ admin }}";
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const myParam = urlParams.get('admin');
+                    let admin = myParam;
                     if (admin == "True"){
-                        document.getElementById("loggedin").href = Flask.url_for("adminpages");
+                        document.getElementById("admin").href = Flask.url_for("adminpages");
+                        document.cookie = "admin=" + admin;
                     }
                     else {
                         document.getElementById("admin").style.display = "none";
+                    }
+                }
+
+                //always set query string on all header pages
+                let dc = document.cookie;
+                let decodedCookie = decodeURIComponent(dc);
+                cookies = decodedCookie.split(";");
+                for (let i = 0; i < cookies.length; i++){
+                    if (cookies[i].startsWith("admin")){
+                        splitcookie = cookies[i].split("=");
+                        document.getElementById("home").href = Flask.url_for('home', {"admin": splitcookie[1]});
+                        document.getElementById("admin").href = Flask.url_for('adminpages', {"admin": splitcookie[1]});
+                        document.getElementById("rooms").href = Flask.url_for('rooms', {"admin": splitcookie[1]});
                     }
                 }
             }
@@ -48,8 +65,8 @@
             </div>
             <hr/>
             <div class="links">
-                <a href = "{{ url_for('home') }}"> Home</a>
-                <a href = "{{ url_for('rooms') }}"> Reserve Room</a>
+                <a id="home" href = "{{ url_for('home') }}"> Home</a>
+                <a id="rooms" href = "{{ url_for('rooms') }}"> Reserve Room</a>
                 <a href = ""> About Us</a>
                 <a id="admin">Admin Pages</a>
                 <a id="login">Login</a>
