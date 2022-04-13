@@ -101,7 +101,6 @@
             </ul>
             </div>
         </div>
-<<<<<<< HEAD
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -139,7 +138,7 @@
   <div class="row" style="margin-left: 10px;">
     <p>
       <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
-      <button type="button" class="create_button">Create New Room</button>
+      <button type="button" style="margin-left: 1030px;" class="create_button">Create New Room</button>
     </p>
     <p>
       <table class="table">
@@ -162,22 +161,6 @@
               <p class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</p>
               </h4>
             </td>
-=======
-      </nav>
-    -->
-    <div class="row" style="margin-left: 10px;">
-      <p>
-        
-        <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
-        <button type="button" class="create_button" href="{{ url_for('createroom') }}">Create New Room</button>
-      </p>
-      <p>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th style="font-size: medium;">Room Name</th>
->>>>>>> 4178cbb48a2bdf0e510e44e7c019b9d4fb2f37fa
             </tr>
           </thead>
           <tbody>
@@ -185,7 +168,7 @@
               <tr>
                 <td style="font-size: medium;">1.</td>
                 <td><h4> Room {{ room[7] }}
-                <button type="button" style="margin-left: 150px;" class="edit_button">Edit</button>
+                <button type="button" style="margin-left: 1000px;" class="edit_button">Edit</button>
                 <button type="button" class="delete_button">Delete</button>
                 <button type="button" class="reservations_button">Reservations</button>
                 <p class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</p>
