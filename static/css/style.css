@@ -6,8 +6,8 @@ Body {
 #title {
     margin:auto;
     text-align:center;
-    padding-bottom: 2%;
-    padding-left: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 #top {
@@ -17,11 +17,13 @@ Body {
 #loggedin {
     color: green;
     padding-right: 1%;
+    position: absolute;
 }
 
 .links {
     display: flex;
     justify-content: space-evenly;
+    text-decoration: none;
 }
 
 #footertext {

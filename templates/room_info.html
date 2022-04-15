@@ -19,84 +19,162 @@
     }
 
     .maininfo {
-      margin:auto;text-align:center;
+      margin:auto;
+      text-align:center;
     }
 
-    #name {
-      padding-top:30px;
-    }
-    #time {
-      margin-top:5%;
-      margin-left: 45%;
+    #name1 {
+      padding-top:10px;
+      padding-bottom: 60px;
     }
 
     .input {
-      margin-left: 43%;
-      margin-top:100px;
-    }
-
-    #size {
-      margin: 0 auto;
-      
-    }
-
-    #timeinput {
-      margin: 0 auto;
-      margin-left: 3.65%;
+      margin: auto;
+      width: 50%;
+      display: table;
     }
 
     .reservebutton {
-      margin-left: 10%;
-      margin-top: 5%;
+      margin-left: 45%;
+      margin-top: 15%;
     }
 
     .adjust_line_height {
-    line-height: 3em;
-  }
+      line-height: 3em;
+    }
+    .container { 
+      padding: 25px; 
+      background-color: white;
+    }
 
+    .dropbtn {
+      background-color: #e9a6a6;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .dropdown {
+      position: relative;
+      display: table-cell;
+      width: 310px;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: #f0735d;}   
   </style>
   <script>
-    function getName() {
-      let temp = '';
+    window.onload = function (){
       let dc = document.cookie;
       let decodedCookie = decodeURIComponent(dc);
       cookies = decodedCookie.split(";");
+      console.log(cookies);
       for (let i = 0; i < cookies.length; i++){
-        if (cookies[i].startsWith("roomname")){
+        if (cookies[i].includes("roomname")){
           splitcookie = cookies[i].split("=");
-          document.getElementById("name").innerHTML = splitcookie[1];
-          temp = splitcookie[1];
+          document.getElementById("name1").innerHTML = splitcookie[1];
         }
       }
-      // //set query params in url to be used with flask
-      // const urlParams = new URLSearchParams(window.location.search);
-      // urlParams.set('roomname', temp);
-      // window.location.search = urlParams;
     }
   </script>
 
-  <body onload="getName()">
+  <body>
     {% for message in get_flashed_messages() %}
       <center><p id="flashedmessage" style="color: #fd3d3d;">{{ message }}</p></center>
     {% endfor %}
-    <h1 class="maininfo" id = "name"></h1>
-    
+    <h1 class="maininfo" id="name1">reeeee</h1>
     <div class="input">
-        <form action="{{ url_for('confirm') }}" method="post">
-            <div style="font-size: large;">
-              <label for="size">Group Size:</label>
-              <input name="groupsize" type="text" id="size">
-            </div>
-
-            <div style="font-size: large;" class="adjust_line_height">
-              <clabel for="time">Time:</label>
-              <input name="time" type="text" id="timeinput">
-            </div>
-            
-            <div class="reservebutton">
-              <button onclick="" id="reserve" type="submit" name="Reserve">Reserve</button>
-            </div>
-        </form>
+      <form method="post">
+        <div style="display: table-row">
+          <div class="dropdown">
+            <label>Group Size : </label> 
+            <select class="dropbtn" name="groupsize">
+              <div class="dropdown-content">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </div>
+            </select>
+          </div>
+        
+          <div class="dropdown">
+            <label>Start Time : </label> 
+            <select class="dropbtn" name="start">
+              <div class="dropdown-content">
+                <option value="6:00am">6:00am</option>
+                <option value="7:00am">7:00am</option>
+                <option value="8:00am">8:00am</option>
+                <option value="9:00am">9:00am</option>
+                <option value="10:00am">10:00am</option>
+                <option value="11:00am">11:00am</option>
+                <option value="12:00pm">12:00pm</option>
+                <option value="1:00pm">1:00pm</option>
+                <option value="2:00pm">2:00pm</option>
+                <option value="3:00pm">3:00pm</option>
+                <option value="4:00pm">4:00pm</option>
+                <option value="5:00pm">5:00pm</option>
+                <option value="6:00pm">6:00pm</option>
+                <option value="7:00pm">7:00pm</option>
+                <option value="8:00pm">8:00pm</option>
+                <option value="9:00pm">9:00pm</option>
+              </div>
+            </select>
+          </div>
+        
+          <div class="dropdown">
+            <label>End Time : </label>
+            <select class="dropbtn" name="end">
+              <div class="dropdown-content">
+                <option value="7:00am">7:00am</option>
+                <option value="8:00am">8:00am</option>
+                <option value="9:00am">9:00am</option>
+                <option value="10:00am">10:00am</option>
+                <option value="11:00am">11:00am</option>
+                <option value="12:00pm">12:00pm</option>
+                <option value="1:00pm">1:00pm</option>
+                <option value="2:00pm">2:00pm</option>
+                <option value="3:00pm">3:00pm</option>
+                <option value="4:00pm">4:00pm</option>
+                <option value="5:00pm">5:00pm</option>
+                <option value="6:00pm">6:00pm</option>
+                <option value="7:00pm">7:00pm</option>
+                <option value="8:00pm">8:00pm</option>
+                <option value="9:00pm">9:00pm</option>
+                <option value="10:00pm">10:00pm</option>
+              </div>
+            </select>
+          </div>
+        </div>
+        <div class="reservebutton">
+          <button id="reserve" type="submit" name="Reserve">Reserve</button>
+        </div>
+      </form>
     </div>
   </body>
 {% endblock %}

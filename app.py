@@ -26,11 +26,11 @@ conn.autocommit = True
 counter = 3
 users=['joe@hawk.iit.edu']
 
-def add_reservation(user_id, room_id, equipment_id, status, group_size, start_time, end_time):
+def add_reservation(user_id, room_id, group_size, start_time, end_time):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = "insert into reservations values (user_id, room_id, e_id, status, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', {}, '{}', '{}', '{}')".format(user_id, room_id, equipment_id, status, group_size, current_time, start_time, end_time)
+    query = "insert into reservations values (user_id, room_id, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
@@ -63,7 +63,6 @@ def get_users():
 
 def get_user(email):
     query = "select password from users where email='{}'".format(email)
-    print("select password from users where email='{}'".format(email))
     cursor.execute(query)
     password = cursor.fetchone()
     if(password == None):
@@ -71,14 +70,25 @@ def get_user(email):
     return password[0]
 
 def set_admin(user):
-    query = "update users set isadmin = true where email = '{}'".format(user)
+    query = "update users set is_admin = true where email = '{}'".format(user)
     cursor.execute(query)
     conn.commit()
 
-def isAdmin(username):
+def remove_admin(user):
+    query = "update users set is_admin = false where email = '{}'".format(user)
+    cursor.execute(query)
+    conn.commit()
+
+def is_admin(username):
     query = "select isadmin from users where email = '{}'".format(username)
     cursor.execute(query)
     return cursor.fetchone()[0]
+
+def get_name(username):
+    query = "select first_name, last_name from users where email = '{}'".format(username)
+    cursor.execute(query)
+    names = cursor.fetchone()
+    return  names[0] + ' ' + names[1]
 
 @app.before_request
 def before_request():
@@ -124,10 +134,12 @@ def login():
             session['attempts'] += 1
             flash("Invalid password")
             return redirect(url_for('login'))
+
         session['username'] = username
+        session['fullname'] = get_name(username)
         flash("You have been logged in!")
 
-        if isAdmin(username):
+        if is_admin(username):
             admin = True
         return redirect(url_for('home', admin=str(admin)))
     return render_template('login.html')
@@ -186,13 +198,29 @@ def rooms():
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
-    return render_template('rooms.html')
+
+    rooms = get_rooms()
+    return render_template('rooms.html', rooms=rooms)
 
 @app.route('/room_info', methods=['POST', 'GET'])
 def room():
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        # size = request.form.get("groupsize")
+        # start = request.form.get("start")
+        # end = request.form.get("end")
+        # userid = get_user_id(g.user)
+        # room = request.args.get("room")
+        # roomparts = room.split("%20")
+        # roomname = roomparts
+        # roomid = get_room_id(roomname)
+
+        # add_reservation(userid, roomid, int(size), start, end)
+        return redirect(url_for('confirm'))
+
     return render_template('room_info.html')
 
 @app.route('/confirmation', methods=['POST', 'GET'])
@@ -200,61 +228,64 @@ def confirm():
     if not g.user:
         flash("You must login first")
         return redirect(url_for('login'))
-    if request.method == 'POST':
-        size = request.form.get("groupsize")
-        time = request.form.get("time")
-
-        if size == '' and time == '':
-            flash("Cannot leave 'Group Size' and 'Time' blank")
-            return redirect(url_for('room'))
-        elif size == '':
-            flash("Cannot leave 'Group Size' blank")
-            return redirect(url_for('room'))
-        elif time == '':
-            flash("Cannot leave 'Time' blank")
-            return redirect(url_for('room'))
-
-
-        time = time.split("-")
-        start = time[0]
-        end = time[1]
-        add_reservation(3, 3, 3, 'reserved', int(size), start, end)
+        
     return render_template('confirmation.html')    
 
 @app.route('/adminpages')
 def adminpages():
-    # if not g.user:
-    #     flash("You must login first")
-    #     return redirect(url_for('login'))
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
 
     return render_template("adminpages.html")
     
 @app.route('/adminrooms')
 def adminrooms():
-    # if not g.user:
-    #     flash("You must login first")
-    #     return redirect(url_for('login'))
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
 
     rooms = get_rooms()
-
     return render_template('adminrooms.html', rooms=rooms)
 
 @app.route('/adminusers', methods=['POST', 'GET'])
 def adminusers():
-    # if not g.user:
-    #     flash("You must login first")
-    #     return redirect(url_for('login'))
-    if request.args:
-        set_admin(request.args.get("user"))
-        flash(request.args.get("user")+" is now an admin")
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
+    if request.args.get("set"):
+        set_admin(request.args.get("set"))
+        flash(request.args.get("set")+" is now an admin")
+    elif request.args.get("remove"):
+        remove_admin(request.args.get("remove"))
+        flash(request.args.get("remove")+" was removed as an admin")
+
     users = get_users()
-    return render_template('adminusers.html', users=users)
+    admins = []
+    for user in users:
+        if is_admin(user[3]):
+            admins.append(user)
+    return render_template('adminusers.html', users=users, admins=admins)
 
 @app.route('/createroom', methods=['POST', 'GET'])
 def createroom():
-    # if not g.user:
-    #     flash("You must login first")
-    #     return redirect(url_for('login'))
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         roomName = request.form.get('Room Name')
         buildingName = request.form.get('Building Name')

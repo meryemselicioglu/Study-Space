@@ -24,10 +24,10 @@
     </style>
     <body>
         <div class="pages"> 
-            <button id="rooms" onclick="window.location.href='{{ url_for('adminrooms') }}';" type="button">
+            <button id="rooms" onclick="window.location.href= Flask.url_for('adminrooms');" type="button">
                 View or Edit Rooms
             </button>
-            <button id="users" onclick="window.location.href='{{ url_for('adminusers') }}';" type="button">
+            <button id="users" onclick="window.location.href= Flask.url_for('adminusers');" type="button">
                 View or Edit Users
             </button>
         </div>

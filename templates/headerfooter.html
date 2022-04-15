@@ -6,6 +6,49 @@
         <meta name = "description" content = "A place to help you focus on your work and and boost your performance">
         <title>StudySpace</title>
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+            a{
+                text-decoration: none;
+            }
+            footer{
+                padding-top: 3%;
+            }
+            .roww{
+                bottom: 0px;
+                width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                display: table;
+                text-align: center;
+                display:flex;
+                flex-wrap: wrap;
+            }
+            .footer-col{
+                width : 25%;
+                padding :0 15px;
+            }
+
+            .footer-col h4{
+                font-size: 18px;
+                color: #110f0f;
+                text-transform: capitalize;
+                margin-bottom:15px;
+                font-weight: 100px;
+                position: relative;
+            }
+            ul{
+                list-style: none;
+            }
+
+            .center{
+                text-align:center
+            }
+
+            .right{
+                text-align:right 
+            }
+        </style>
         <script>
             setTimeout(() => {
                 const mes = document.getElementById('flashedmessage');
@@ -21,9 +64,10 @@
                     document.getElementById("login").innerHTML = "Login";
                     document.getElementById("login").href = Flask.url_for("login");
                     document.cookie = "admin= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                    document.cookie = "roomname= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                 }
                 else{
-                    document.getElementById("loggedin").innerHTML = "Logged in: {{ session.username }}";
+                    document.getElementById("loggedin").innerHTML = "Logged in: {{ session.fullname }}";
                     document.getElementById("login").innerHTML = "Log out";
                     document.getElementById("login").href = Flask.url_for("logout");
                     
@@ -44,8 +88,10 @@
                 let dc = document.cookie;
                 let decodedCookie = decodeURIComponent(dc);
                 cookies = decodedCookie.split(";");
+                console.log(cookies);
                 for (let i = 0; i < cookies.length; i++){
-                    if (cookies[i].startsWith("admin")){
+                    if (cookies[i].includes("admin")){
+                        document.getElementById("admin").style.display = "block";
                         splitcookie = cookies[i].split("=");
                         document.getElementById("home").href = Flask.url_for('home', {"admin": splitcookie[1]});
                         document.getElementById("admin").href = Flask.url_for('adminpages', {"admin": splitcookie[1]});
@@ -56,10 +102,10 @@
         </script>
     </head>
     <body>
-        <header>
+        <header style="position: relative;">
             <div id="top">
                 <h1 id="title">
-                    Study Space Reservations
+                    Scarlet Study Space
                 </h1>
                 <h5 id="loggedin"></h5>
             </div>
@@ -79,10 +125,37 @@
             {% block content %} {% endblock %}
         </div>        
 
+        <footer>
+            <hr/>
+            <div class ="roww">
+                <div class = "footer-col">
+                    <h4>
+                        Company
+                    </h4>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div> 
+                <div class = "footer-col">
+                    <h4>Get Help</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class = "footer-col">
+                    <h4> Follow Us</h4>
+                    <div class = "social-links">
+                        <ul>
+                            <a href="#"><i class = "fab fa-facebook -f"></i></a>
+                            <a href="#"><i class = "fab fa-instagram"></i></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </body>
-    <footer>
-        <h4 id="footertext">this is footer</h4>
-    </footer>
 </html>
 
 

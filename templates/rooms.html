@@ -5,6 +5,7 @@
         .rooms { 
             padding: 50px;
             background-color: rgb(179, 179, 179);
+            align-items: center;
         }  
 
         button { 
@@ -27,10 +28,10 @@
     </style>
     <script>
         function relay(id) {
-            var text = document.getElementById(id).innerHTML;
-            text = text.replace(/\s/g, ''); //remove extra spaces
+            let text = document.getElementById(id).innerText;
+            //text = text.replace(/\s/g, ''); //remove extra spaces
             document.cookie = "roomname=" + text;
-            window.location.href = "{{ url_for('room') }}";
+            window.location.href = Flask.url_for('room', {"room": text});
         }
     </script>
     <center> <h1> Reserve A Room </h1> </center> 
@@ -38,10 +39,14 @@
         <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
     {% endfor %}
     <form>
-        <div class="rooms"> 
-            <button id="room1" onclick="relay(this.id)" type="reset">
-                Wishnick Hall 129
-            </button>
+        <div class="rooms">
+            {% for room in rooms %}
+                {% if room[3] == true %}
+                    <button id="room{{loop.index}}" style="margin-right: 3%;" onclick="relay(this.id)" type="button">
+                        {{ room[6] }} {{ room[7] }}
+                    </button>
+                {% endif %}
+            {% endfor %}
         </div>
     </form>
 {% endblock %}

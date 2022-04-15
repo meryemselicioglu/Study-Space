@@ -1,7 +1,6 @@
 {% extends 'headerfooter.html' %}
 
 {% block content %}
-  <!doctype html>
   <style>
     button { 
       background-color: #FF6F6F; 
@@ -44,73 +43,20 @@
       color: white;
     }
   </style>
-  <html lang="en">
-    <head>
-      {{ JSGlue.include() }}
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-
-      <title>IPRO Group J</title>
-
-      <!-- Bootstrap -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-      <script>
-        function setadmin(x) {
-          let user1id = document.getElementById("email"+x).innerHTML;
-          let user1 = user1id.substring(7);
-          window.location.href= Flask.url_for("adminusers", {"user": user1});
-        }
-      </script>
-    </head>
-    <body>
-      <!--
-        <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">IPRO Group J</a>
-            </div>
-        
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
-                </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-                </li>
-            </ul>
-            </div>
-        </div>
-      </nav>
-    -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script>
+    function setadmin(x) {
+      let user1id = document.getElementById("email"+x).innerHTML;
+      let user1 = user1id.substring(7);
+      window.location.href= Flask.url_for("adminusers", {"set": user1});
+    }
+    function removeadmin(x) {
+      let user1id = document.getElementById("email"+x).innerHTML;
+      let user1 = user1id.substring(7);
+      window.location.href= Flask.url_for("adminusers", {"remove": user1});
+    }
+  </script>
+  <body>
     {% for message in get_flashed_messages() %}
             <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
     {% endfor %}
@@ -129,15 +75,19 @@
           <tbody>
             {% for user in users %}
               <tr>
-                <td style="font-size: medium;">1.</td>
+                <td style="font-size: medium;">{{loop.index}}. </td>
                 <td>
                   <h4>{{ user[1] }} {{ user[2] }}</h4>
                   <h4 class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</h4>
                   <div class="ree">
                     <button type="button" class="edit_button">Edit</button>
                     <button type="button" class="delete_button">Delete</button>
-                    <button type="button" class="reservations_button"><a class="text_color" href="room_info.html">Reservations</a></button>
-                    <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
+                    <button type="button" class="reservations_button">Reservations</button>
+                    {% if user not in admins %}
+                      <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
+                    {% else %}
+                      <button id="{{loop.index}}" type="button" onclick="removeadmin(this.id)" class="delete_button">Remove As Admin</button>
+                    {% endif %}
                   </div>
                 </td>
               </tr>
@@ -147,10 +97,9 @@
       </p>
     </div>
 
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-    </body>
-  </html>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </body>
 {% endblock %}

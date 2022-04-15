@@ -58,7 +58,7 @@
     .dropbtn {
         background-color: #e9a6a6;
         color: white;
-        padding: 16px;
+        padding: 10px;
         font-size: 16px;
         border: none;
     }
@@ -95,8 +95,8 @@
         <center> <h1> Create A New Room </h1> </center> 
         <form method="post">
             <div class="container">
-                <label>Room name :</label> 
-                <input type="text" placeholder="Enter a Name for this Room" name="Room Name" required>
+                <label>Room name/number :</label> 
+                <input type="text" placeholder="Enter a Name/Number for this Room" name="Room Name" required>
                 <label>Building name:</label> 
                 <input type="text" placeholder="Enter the Name of the building" name="Building Name" required>
                 <label>Address :</label> 
@@ -118,6 +118,8 @@
                     <select class="dropbtn" name="Start-Time">
                         <div class="dropdown-content">
                             <option value="6:00am">6:00am</option>
+                            <option value="7:00am">7:00am</option>
+                            <option value="8:00am">8:00am</option>
                             <option value="9:00am">9:00am</option>
                             <option value="10:00am">10:00am</option>
                             <option value="11:00am">11:00am</option>
@@ -163,7 +165,7 @@
                     <div class="dropdown">
                         <select class="dropbtn" name="Equipment[]" multiple>
                             <div class="dropdown-content">
-                                <option value="none">None</option>
+                                <option selected value="none">None</option>
                                 <option value="whiteboard">Whiteboard</option>
                                 <option value="projector">Projector</option>
                                 <option value="markers">Markers</option>

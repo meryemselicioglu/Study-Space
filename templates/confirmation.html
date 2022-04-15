@@ -1,13 +1,24 @@
 {% extends 'headerfooter.html' %}
 
 {% block content %}
-  <body style="text-align: center;margin-top: 5%;">
+  <script>
+    window.onload = function () {
+      let dc = document.cookie;
+      let decodedCookie = decodeURIComponent(dc);
+      cookies = decodedCookie.split(";");
+      console.log(cookies);
+      for (let i = 0; i < cookies.length; i++){
+        if (cookies[i].includes("roomname")){
+          splitcookie = cookies[i].split("=");
+          document.getElementById("success").innerHTML = "Success! " + splitcookie[1] + " has been reserved for " + " {{session.fullname}}";
+        }
+      }
+    }
+  </script>
+  <body>
     {% for message in get_flashed_messages() %}
           <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
     {% endfor %}
-    <h1>Success!!!!</h1>
-    Room Name: 
-    Start Time: 
-    End Time: 
+    <h1 style="padding-top: 3%; text-align: center" id="success">Success!</h1>
   </body>
 {% endblock %}
