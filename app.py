@@ -30,7 +30,7 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
-    query = "insert into reservations values (user_id, room_id, group_size, reserve_time, start_time, end_time) ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
+    query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time) values ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
     cursor.execute(query)
     conn.commit()
 
@@ -89,6 +89,26 @@ def get_name(username):
     cursor.execute(query)
     names = cursor.fetchone()
     return  names[0] + ' ' + names[1]
+
+def get_room_id(fullroom):
+    query = "select room_id from rooms where building_name || ' ' || name = '{}'".format(fullroom)
+    cursor.execute(query)
+    return  cursor.fetchone()[0]
+
+def get_user_id(user):
+    query = "select user_id from users where email = '{}'".format(user)
+    cursor.execute(query)
+    return  cursor.fetchone()[0]
+
+def get_buildings():
+    query = "select distinct building_name from rooms"
+    cursor.execute(query)
+    return  cursor.fetchall()
+
+def get_equipment(roomid):
+    query = "select equipment from rooms where room_id = {}".format(roomid)
+    cursor.execute(query)
+    return  cursor.fetchone()[0]
 
 @app.before_request
 def before_request():
@@ -200,7 +220,16 @@ def rooms():
         return redirect(url_for('login'))
 
     rooms = get_rooms()
-    return render_template('rooms.html', rooms=rooms)
+    buildings = get_buildings()
+
+    buildingsNew = []
+    for building in buildings:
+        for room in rooms:
+            if room[3] == True and building[0] == room[6]:
+                buildingsNew.append(building)
+                break
+
+    return render_template('rooms.html', buildings=buildingsNew, rooms=rooms)
 
 @app.route('/room_info', methods=['POST', 'GET'])
 def room():
@@ -208,20 +237,21 @@ def room():
         flash("You must login first")
         return redirect(url_for('login'))
     
-    if request.method == 'POST':
-        # size = request.form.get("groupsize")
-        # start = request.form.get("start")
-        # end = request.form.get("end")
-        # userid = get_user_id(g.user)
-        # room = request.args.get("room")
-        # roomparts = room.split("%20")
-        # roomname = roomparts
-        # roomid = get_room_id(roomname)
+    room = request.args.get("room")
+    fullroom = room.replace("%20", " ")
+    roomid = get_room_id(fullroom)
 
-        # add_reservation(userid, roomid, int(size), start, end)
+    if request.method == 'POST':
+        size = request.form.get("groupsize")
+        start = request.form.get("start")
+        end = request.form.get("end")
+        userid = get_user_id(g.user)
+
+        add_reservation(userid, roomid, int(size), start, end)
         return redirect(url_for('confirm'))
 
-    return render_template('room_info.html')
+    equipment = get_equipment(roomid)
+    return render_template('room_info.html', equipment=equipment)
 
 @app.route('/confirmation', methods=['POST', 'GET'])
 def confirm():
@@ -291,7 +321,7 @@ def createroom():
         buildingName = request.form.get('Building Name')
         buildingAddress = request.form.get('Building Address')
         maxNoPpl = request.form.get('Capacity')
-        availabilty = request.form.get('Availability')
+        availabilty = request.form.get('available')
         start = request.form.get('Start-Time')
         end = request.form.get('End-Time')
         equipment = request.form.getlist('Equipment[]')

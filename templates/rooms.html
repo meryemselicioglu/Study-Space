@@ -4,20 +4,23 @@
     <style>
         .rooms { 
             padding: 50px;
+            padding-right: 30px;
+            padding-top: 1%;
             background-color: rgb(179, 179, 179);
             align-items: center;
+            margin-bottom: 2%;
         }  
 
         button { 
-        background-color: #FF6F6F; 
-        width: 25%;
+            background-color: #FF6F6F; 
+            width: 25%;
             color: white; 
-            padding: 15px; 
+            padding: 20px; 
             margin: 10px 0px; 
             width : 200px;
             border: none; 
             cursor: pointer; 
-            
+            font-size: 14px;
         } 
 
         .box {
@@ -28,10 +31,15 @@
     </style>
     <script>
         function relay(id) {
-            let text = document.getElementById(id).innerText;
-            //text = text.replace(/\s/g, ''); //remove extra spaces
-            document.cookie = "roomname=" + text;
-            window.location.href = Flask.url_for('room', {"room": text});
+            let building = document.getElementById(id);
+            while (building.previousElementSibling != null){
+                building = building.previousElementSibling;
+            }
+            building = building.innerHTML;
+            let room = document.getElementById(id).innerText;
+            fullroom = building + " " + room;
+            document.cookie = "roomname=" + fullroom;
+            window.location.href = Flask.url_for('room', {"room": fullroom});
         }
     </script>
     <center> <h1> Reserve A Room </h1> </center> 
@@ -39,14 +47,17 @@
         <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
     {% endfor %}
     <form>
-        <div class="rooms">
-            {% for room in rooms %}
-                {% if room[3] == true %}
-                    <button id="room{{loop.index}}" style="margin-right: 3%;" onclick="relay(this.id)" type="button">
-                        {{ room[6] }} {{ room[7] }}
-                    </button>
-                {% endif %}
-            {% endfor %}
-        </div>
+        {% for building in buildings %}
+            <div class="rooms">
+                <h2 id="building" style="padding-bottom: 1%;">{{building[0]}}</h2>
+                {% for room in rooms %}
+                    {% if room[6] == building[0] and room[3] == true %}
+                        <button id="room{{loop.index}}" style="margin-right: 3%;" onclick="relay(this.id)" type="button">
+                            {{ room[7] }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
     </form>
 {% endblock %}

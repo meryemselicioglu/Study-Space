@@ -25,13 +25,17 @@
 
     #name1 {
       padding-top:10px;
-      padding-bottom: 60px;
+      padding-bottom: 15px;
     }
 
     .input {
       margin: auto;
       width: 50%;
       display: table;
+      border: 3px solid #f1f1f1;
+      padding: 10%;
+      padding-top: 2%;
+      padding-bottom: 2%;
     }
 
     .reservebutton {
@@ -81,6 +85,11 @@
     .dropdown:hover .dropdown-content {display: block;}
 
     .dropdown:hover .dropbtn {background-color: #f0735d;}   
+
+    #equipment {
+      text-align: center;
+      padding-bottom: 10px;
+    }
   </style>
   <script>
     window.onload = function (){
@@ -102,6 +111,18 @@
       <center><p id="flashedmessage" style="color: #fd3d3d;">{{ message }}</p></center>
     {% endfor %}
     <h1 class="maininfo" id="name1">reeeee</h1>
+
+    <h4 id="equipment">
+      Available Equipment: 
+      {% if equipment %}
+        {% for equip in equipment %}
+          {% if loop.last %} {{equip}} {% else %} {{equip}}, {% endif %}
+        {% endfor %}
+      {% else %}
+        None
+      {% endif %}
+    </h4>
+
     <div class="input">
       <form method="post">
         <div style="display: table-row">
