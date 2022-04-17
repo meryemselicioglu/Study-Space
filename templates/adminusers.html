@@ -80,8 +80,6 @@
                   <h4>{{ user[1] }} {{ user[2] }}</h4>
                   <h4 class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</h4>
                   <div class="ree">
-                    <button type="button" class="edit_button">Edit</button>
-                    <button type="button" class="delete_button">Delete</button>
                     <button type="button" class="reservations_button">Reservations</button>
                     {% if user not in admins %}
                       <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
