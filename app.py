@@ -36,7 +36,6 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time):
 
 def add_user(f_name, l_name, email, phone, password):
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
 
     query = "insert into users values ('{}', '{}', '{}', '{}', '{}')".format(f_name, l_name, email, phone, password)
     cursor.execute(query)
@@ -54,6 +53,23 @@ def get_rooms():
 
     return cursor.fetchall()
 
+def get_room(fullroom):
+    query = "select * from rooms where building_name || ' ' || name = '{}'".format(fullroom)
+    cursor.execute(query)
+    conn.commit()
+
+    return cursor.fetchall()
+
+def update_room(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom):
+    query = "update rooms set address = '{}', no_of_people = {}, isavailable = '{}', start_time = '{}', end_time = '{}', building_name = '{}', name = '{}', equipment = ARRAY {} where building_name || ' ' || name = '{}'".format(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom)
+    cursor.execute(query)
+    conn.commit()
+
+def delete_room(fullroom):
+    query = "delete from rooms where building_name || ' ' || name = '{}'".format(fullroom)
+    cursor.execute(query)
+    conn.commit()
+
 def get_users():
     query = "select * from users"
     cursor.execute(query)
@@ -70,12 +86,12 @@ def get_user(email):
     return password[0]
 
 def set_admin(user):
-    query = "update users set is_admin = true where email = '{}'".format(user)
+    query = "update users set isadmin = true where email = '{}'".format(user)
     cursor.execute(query)
     conn.commit()
 
 def remove_admin(user):
-    query = "update users set is_admin = false where email = '{}'".format(user)
+    query = "update users set isadmin = false where email = '{}'".format(user)
     cursor.execute(query)
     conn.commit()
 
@@ -333,6 +349,67 @@ def createroom():
         flash('Room Created!')
         return redirect(url_for('adminrooms'))
     return render_template('adminCreateRoom.html')
+
+@app.route('/editroom', methods=['POST', 'GET'])
+def editroom():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        if request.args:
+            roomname = request.args.get("room")
+            fullroom = roomname.replace("%20", " ")
+
+        roomName = request.form.get('Room Name')
+        buildingName = request.form.get('Building Name')
+        buildingAddress = request.form.get('Building Address')
+        maxNoPpl = request.form.get('Capacity')
+        availabilty = request.form.get('available')
+        start = request.form.get('Start-Time')
+        end = request.form.get('End-Time')
+        equipment = request.form.getlist('Equipment[]')
+
+        if 'none' in equipment and len(equipment) > 1:
+            equipment.remove('none')
+
+        update_room(buildingAddress, maxNoPpl, 'True' if availabilty == 'yes' else 'False', start, end, buildingName, roomName, equipment, fullroom)
+        flash('Room Updated!')
+        return redirect(url_for('adminrooms'))
+
+    if request.args:
+        roomname = request.args.get("room")
+        fullroom = roomname.replace("%20", " ")
+        room = get_room(fullroom)
+        room = room[0]
+        avail = "Yes" if room[3] == True else "No"
+    else:
+        flash("System Error")
+        return redirect(url_for('adminrooms'))
+
+    return render_template('adminCreateRoom.html', building=room[6], number=room[7], address=room[1], capacity=room[2], availability=avail, starttime=room[4], endtime=room[5], equipment=room[8])
+
+@app.route('/adminrooms1')
+def deleteroom():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
+    if request.args:
+        roomname = request.args.get("room")
+        fullroom = roomname.replace("%20", " ")
+        delete_room(fullroom)
+        flash(fullroom + " was deleted")
+        return redirect(url_for('adminrooms'))
+    else:
+        flash("System Error")
+        return redirect(url_for('adminrooms'))
 
 
 if __name__ == "__main__":

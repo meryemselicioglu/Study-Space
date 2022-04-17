@@ -16,7 +16,8 @@
       color: white;
       width: 165px;
       font-size: medium;
-      margin-left: 125px;
+      margin-left: 68%;
+      margin-top: 1%;
     }
     .edit_button {
       color: white;
@@ -39,16 +40,48 @@
     .adjust_line_height {
       line-height: 2em;
     }
+    .col-md-2 {
+      white-space: nowrap;
+    }
 
   </style>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script>
+    function edit(id) {
+      let temp = document.getElementById(id);
+      let buttonsdiv = temp.parentElement;
+      let building = buttonsdiv.previousElementSibling.previousElementSibling;
+      let name = building.previousElementSibling.previousElementSibling.innerHTML;
+      building = building.innerHTML;
+      building = building.split(": ")[1];
+      name = name.split(": ")[1];
+      fullroom = building + " " + name;
+
+      window.location.href = Flask.url_for('editroom', {"room": fullroom});
+    }
+    function deleteroom(id) {
+      let temp = document.getElementById(id);
+      let buttonsdiv = temp.parentElement;
+      let building = buttonsdiv.previousElementSibling.previousElementSibling;
+      let name = building.previousElementSibling.previousElementSibling.innerHTML;
+      building = building.innerHTML;
+      building = building.split(": ")[1];
+      name = name.split(": ")[1];
+      fullroom = building + " " + name;
+
+      let confirm = window.confirm(`Are you sure you want to delete the following room?\n${fullroom}`);
+      if (confirm){
+        window.location.href= Flask.url_for('deleteroom', {"room": fullroom});
+      }
+    }
+  </script>
   <body>
     {% for message in get_flashed_messages() %}
-              <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
+      <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
     {% endfor %}
     <div class="row" style="margin-left: 10px;">
       <p>
-        <div class="col-md-2"><h3 style="font-size:xx-large;">Study Room</h3></div>
+        <div class="col-md-2"><h2 style="font-size:xx-large;">All Study Rooms</h2></div>
         <button type="button" class="create_button" onclick="window.location.href= Flask.url_for('createroom');">Create New Room</button>
       </p>
       <p>
@@ -63,13 +96,14 @@
               {% for room in rooms %}
               <tr>
                 <td style="font-size: medium;">{{loop.index}}. </td>
-                <td><h4> Room: {{ room[7] }}</h4>
-                <h4 class="adjust_line_height">Occupied: {% if room[3] == true %} No {% else %} Yes {% endif %}</h4>
+                <td>
+                <h4> Room: {{ room[7] }}</h4>
+                <h4 class="adjust_line_height">Occupied: {% if room[3] == True %} No {% else %} Yes {% endif %}</h4>
                 <h4 class="adjust_line_height">Building: {{ room[6] }}</h4>
                 <h4 class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</h4>
                 <div class="ree">
-                  <button type="button" class="edit_button">Edit</button>
-                  <button type="button" class="delete_button">Delete</button>
+                  <button id="edit{{loop.index}}" type="button" class="edit_button" onclick="edit(this.id)">Edit</button>
+                  <button id="delete{{loop.index}}" type="button" class="delete_button" onclick="deleteroom(this.id)">Delete</button>
                   <button type="button" class="reservations_button">Reservations</button>
                 </div>
               </td>
