@@ -74,11 +74,20 @@
         window.location.href= Flask.url_for('deleteroom', {"room": fullroom});
       }
     }
+    function reservations(id) {
+      let temp = document.getElementById(id);
+      let buttonsdiv = temp.parentElement;
+      let building = buttonsdiv.previousElementSibling.previousElementSibling;
+      let name = building.previousElementSibling.previousElementSibling.innerHTML;
+      building = building.innerHTML;
+      building = building.split(": ")[1];
+      name = name.split(": ")[1];
+      fullroom = building + " " + name;
+
+      window.location.href = Flask.url_for('roomreservations', {"room": fullroom});
+    }
   </script>
   <body>
-    {% for message in get_flashed_messages() %}
-      <center><p id="flashedmessage" style="color: green;">{{ message }}</p></center>
-    {% endfor %}
     <div class="row" style="margin-left: 10px;">
       <p>
         <div class="col-md-2"><h2 style="font-size:xx-large;">All Study Rooms</h2></div>
@@ -104,7 +113,7 @@
                 <div class="ree">
                   <button id="edit{{loop.index}}" type="button" class="edit_button" onclick="edit(this.id)">Edit</button>
                   <button id="delete{{loop.index}}" type="button" class="delete_button" onclick="deleteroom(this.id)">Delete</button>
-                  <button type="button" class="reservations_button">Reservations</button>
+                  <button id="reservations{{loop.index}}" type="button" class="reservations_button" onclick="reservations(this.id)">Reservations</button>
                 </div>
               </td>
               </tr>

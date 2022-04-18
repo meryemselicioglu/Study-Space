@@ -1,0 +1,41 @@
+{% extends 'headerfooter.html' %}
+
+{% block content %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <body>
+    {% if reservations %}
+        <div class="row" style="margin-left: 10px;">
+        <p>
+            <table class="table">
+            <thead>
+                <tr>
+                <th>#</th>
+                <th style="font-size: medium;">Reservation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td style="font-size: medium;">{{loop.index}}. </td>
+                    <td>
+                    <h4> User: {{ reservation[7] }}</h4>
+                    <h4 class="adjust_line_height">Start Time: {{ reservation[5] }}</h4>
+                    <h4 class="adjust_line_height">End Time: {{ reservation[6] }}</h4>
+                    <h4 class="adjust_line_height">Group Size: {{ reservation[3] }}</h4>
+                    <h4 class="adjust_line_height">Reserve Time: {{ reservation[4] }}</h4>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </p>
+        </div>
+    {% else %}
+        <h1 style="text-align:center">No Reservations Found</h1>
+    {% endif %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </body>
+{% endblock %}

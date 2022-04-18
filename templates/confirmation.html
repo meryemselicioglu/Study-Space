@@ -16,9 +16,6 @@
     }
   </script>
   <body>
-    {% for message in get_flashed_messages() %}
-          <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
-    {% endfor %}
     <h1 style="padding-top: 3%; text-align: center" id="success">Success!</h1>
   </body>
 {% endblock %}

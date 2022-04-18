@@ -43,26 +43,21 @@
     </style> 
     <body>  
         <center> <h1> Create Account </h1> </center> 
-        {% for message in get_flashed_messages() %}
-            <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
-        {% endfor %}
         <form method="post">
             <div class="container"> 
-                <label>University name : </label> 
+                <label>University/College Name : </label> 
                 <input type="text" placeholder="Enter Name Of Your University" name="University" required>
-                <label>University ID #: </label> 
-                <input type="text" placeholder="Enter University ID #" name="University ID" required>
-                <label>Email : </label> 
+                <label>School Email : </label> 
                 <input type="text" placeholder="Enter Email Address" name="email" required>
-                <label>First name : </label> 
+                <label>First Name : </label> 
                 <input type="text" placeholder="Enter First Name" name="First Name" required>
-                <label>Last name : </label> 
+                <label>Last Name : </label> 
                 <input type="text" placeholder="Enter Last Name" name="Last Name" required>
                 <label>Password : </label> 
                 <input type="password" placeholder="Enter Password" name="password" required>
-                <label>Re-enter password : </label> 
+                <label>Re-enter Password : </label> 
                 <input type="password" placeholder="Re-enter password" name="re-enter password" required>
-                <label>Phone number </label> 
+                <label>Phone Number : </label> 
                 <input type="text" placeholder="Enter Phone #" name="Phone number" required>
                 <button type="submit">Create Account</button> 
                 <input type="checkbox" checked="checked"> Remember me 

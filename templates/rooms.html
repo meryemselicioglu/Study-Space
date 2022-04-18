@@ -42,10 +42,7 @@
             window.location.href = Flask.url_for('room', {"room": fullroom});
         }
     </script>
-    <center> <h1> Reserve A Room </h1> </center> 
-    {% for message in get_flashed_messages() %}
-        <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
-    {% endfor %}
+    <center> <h1> Reserve A Room </h1> </center>
     <form>
         {% for building in buildings %}
             <div class="rooms">

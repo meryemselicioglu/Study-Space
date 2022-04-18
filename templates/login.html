@@ -44,9 +44,6 @@
 
     <body>  
         <center> <h1> Student Login Form </h1> </center> 
-        {% for message in get_flashed_messages() %}
-            <center><p id="flashedmessage" style="color: red;">{{ message }}</p></center>
-        {% endfor %}
         <form method="post">
             <div class="container"> 
                 <label>Username : </label> 

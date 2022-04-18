@@ -1,6 +1,10 @@
 from datetime import datetime
 import time
-import markupsafe
+from numpy import full
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
 from flask_jsglue import JSGlue
 from database.DBConnection import *
 from database.User import *
@@ -34,10 +38,8 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time):
     cursor.execute(query)
     conn.commit()
 
-def add_user(f_name, l_name, email, phone, password):
-    now = datetime.now()
-
-    query = "insert into users values ('{}', '{}', '{}', '{}', '{}')".format(f_name, l_name, email, phone, password)
+def add_user(f_name, l_name, email, phone, password, uni):
+    query = "insert into users (first_name, last_name, email, phone_no, password, isadmin, university) values ('{}', '{}', '{}', '{}', '{}', 'False', '{}')".format(f_name, l_name, email, phone, password, uni)
     cursor.execute(query)
     conn.commit()
 
@@ -85,6 +87,11 @@ def get_user(email):
         return None
     return password[0]
 
+def get_email(userid):
+    query = "select email from users where user_id = {}".format(userid)
+    cursor.execute(query)
+    return cursor.fetchone()[0]
+
 def set_admin(user):
     query = "update users set isadmin = true where email = '{}'".format(user)
     cursor.execute(query)
@@ -126,6 +133,12 @@ def get_equipment(roomid):
     cursor.execute(query)
     return  cursor.fetchone()[0]
 
+def get_reservations(fullroom):
+    rmid = get_room_id(fullroom)
+    query = "select * from reservations where room_id = {}".format(rmid)
+    cursor.execute(query)
+    return  cursor.fetchone()
+
 @app.before_request
 def before_request():
     if 'username' in session:
@@ -144,7 +157,6 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-
         db_password = get_user(username)
 
         if session.get('timeout'):
@@ -166,7 +178,7 @@ def login():
             session['attempts'] += 1
             flash("Invalid username")
             return redirect(url_for('login'))
-        elif password != db_password:
+        elif not check_password_hash(db_password, password):
             session['attempts'] += 1
             flash("Invalid password")
             return redirect(url_for('login'))
@@ -189,7 +201,6 @@ def logout():
 def create_account():
     if request.method == 'POST':
         uni = request.form.get('University')
-        uni_id = request.form.get('University ID')
         email = request.form.get('email')
         f_name = request.form.get('First Name')
         l_name = request.form.get('Last Name')
@@ -201,29 +212,31 @@ def create_account():
             flash("not same password")
             return redirect(url_for('create_account'))
         if len(password) < 6:
-            flash("too short")
+            flash("password must be at least 6 characters")
             return redirect(url_for('create_account'))
         if "password" in password or "12345678" in password or "qwerty" in password:
-            flash("too common")
+            flash("password too common")
             return redirect(url_for('create_account'))
         if uni in password or f_name in password or l_name in password or phone in password:
-            flash("too personal")
-            return redirect(url_for('create_account'))
-        email_split = email.split('@')
-        if len(email_split) != 2:
-            flash("bad email")
-            return redirect(url_for('create_account'))
-        if not get_user(email) is None:
-            flash("email alaready exist")
-            return redirect(url_for('create_account'))
-        elif email_split[1][-3:] != ".com" | email_split[1][-3:] != ".net" | email_split[1][-3:] != ".gov" | email_split[1][-3:] != ".edu":
-            flash("bad email")
-            return redirect(url_for('create_account'))
-        elif len(phone) != 10:
-            flash("bad phone number")
+            flash("password too personal")
             return redirect(url_for('create_account'))
 
-        add_user(f_name, l_name, email, phone, password)
+        email_split = email.split('@')
+
+        if len(email_split) != 2:
+            flash("bad email format")
+            return redirect(url_for('create_account'))
+        if get_user(email):
+            flash("email alaready exists")
+            return redirect(url_for('create_account'))
+        elif email_split[1][-3:] != "com" and email_split[1][-3:] != "net" and email_split[1][-3:] != "gov" and email_split[1][-3:] != "edu":
+            flash("bad email domain" + " (" + email_split[1] + ")")
+            return redirect(url_for('create_account'))
+        elif len(phone) != 10:
+            flash("bad phone number (no parentheses, dashes, or spaces)")
+            return redirect(url_for('create_account'))
+
+        add_user(f_name, l_name, email, phone, generate_password_hash(password), uni)
         
         flash("Account created! Please log in!")
         return redirect(url_for('login'))
@@ -411,6 +424,26 @@ def deleteroom():
         flash("System Error")
         return redirect(url_for('adminrooms'))
 
+@app.route('/roomreservations')
+def roomreservations():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
+    if request.args:
+        roomname = request.args.get("room")
+        fullroom = roomname.replace("%20", " ")
+        reservations = get_reservations(fullroom)
+        if reservations:
+            reservations = list(reservations)
+            reservations.append(get_email(reservations[1]))
+        return render_template('roomreservations.html', reservations=reservations)
+    else:
+        flash("System Error")
+        return redirect(url_for('adminrooms'))
 
 if __name__ == "__main__":
     app.static_folder='static'

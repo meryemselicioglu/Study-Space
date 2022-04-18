@@ -122,6 +122,9 @@
         </header>
        
         <div class="container">
+            {% for message in get_flashed_messages() %}
+                <center><h3 id="flashedmessage" style="color:lightseagreen">{{ message }}</h3></center>
+            {% endfor %}
             {% block content %} {% endblock %}
         </div>        
 
