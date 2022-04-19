@@ -1,6 +1,5 @@
 from datetime import datetime
 import time
-from numpy import full
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -27,8 +26,6 @@ db = DBConnection('studyspacesboss', 'IPRO497gpd!!', 'studyspacesdbserver.postgr
 conn = db.connect()
 cursor = conn.cursor()
 conn.autocommit = True
-counter = 3
-users=['joe@hawk.iit.edu']
 
 def add_reservation(user_id, room_id, group_size, start_time, end_time):
     now = datetime.now()
@@ -36,46 +33,38 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time):
 
     query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time) values ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
     cursor.execute(query)
-    conn.commit()
 
 def add_user(f_name, l_name, email, phone, password, uni):
     query = "insert into users (first_name, last_name, email, phone_no, password, isadmin, university) values ('{}', '{}', '{}', '{}', '{}', 'False', '{}')".format(f_name, l_name, email, phone, password, uni)
     cursor.execute(query)
-    conn.commit()
 
 def add_room(address, no_of_people, isAvailable, start, end, building, name, equipment):
     query = "insert into rooms (address, no_of_people, isavailable, start_time, end_time, building_name, name, equipment) values ('{}', {}, '{}', '{}', '{}', '{}', '{}', ARRAY {})".format(address, no_of_people, isAvailable, start, end, building, name, equipment)
     cursor.execute(query)
-    conn.commit()
 
 def get_rooms():
     query = "select * from rooms"
     cursor.execute(query)
-    conn.commit()
 
     return cursor.fetchall()
 
 def get_room(fullroom):
     query = "select * from rooms where building_name || ' ' || name = '{}'".format(fullroom)
     cursor.execute(query)
-    conn.commit()
 
     return cursor.fetchall()
 
 def update_room(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom):
     query = "update rooms set address = '{}', no_of_people = {}, isavailable = '{}', start_time = '{}', end_time = '{}', building_name = '{}', name = '{}', equipment = ARRAY {} where building_name || ' ' || name = '{}'".format(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom)
     cursor.execute(query)
-    conn.commit()
 
 def delete_room(fullroom):
     query = "delete from rooms where building_name || ' ' || name = '{}'".format(fullroom)
     cursor.execute(query)
-    conn.commit()
 
 def get_users():
     query = "select * from users"
     cursor.execute(query)
-    conn.commit()
 
     return cursor.fetchall()
 
@@ -95,12 +84,10 @@ def get_email(userid):
 def set_admin(user):
     query = "update users set isadmin = true where email = '{}'".format(user)
     cursor.execute(query)
-    conn.commit()
 
 def remove_admin(user):
     query = "update users set isadmin = false where email = '{}'".format(user)
     cursor.execute(query)
-    conn.commit()
 
 def is_admin(username):
     query = "select isadmin from users where email = '{}'".format(username)
