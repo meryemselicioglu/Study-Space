@@ -88,6 +88,9 @@ Mirte and her classmates from CS 487 have a midterm exam they need to study for.
 ### Scenario #3
 It is currently Tuesday and Alex has an upcoming final exam in Math 333 next week on Monday. Since he was not performing well in earlier midterms he wants to put in as much time and effort for it as possible. He lives on campus in a dorm and wants to avoid the common study lounges which tend to be quite busy and crowded. In order to be as safe as possible from COVID he plans to book a study space where he can be isolated and study efficiently by utilizing the resources, like projector and whiteboard, present in the room as well. He opens the Study Reservation App to find available spots and books a room for 4 hours each from 2:00-6:00pm on Wednesday, Thursday, and Friday of the current week. 
 
+### Scenario #4
+John is a school administrator and is looking for a platform to offer study rooms on campus. He finds our app, contacts us and we then create an account for him as an administrator. He logs in and assigns other school adminstrators the admin role so that they can also utilize the app. John begins to add rooms to the listing of rooms so that students can begin reserving them. John is able to view all rooms and users and edit them as well.
+
 ## Team Members & Project Manager Schedule
 
 | Name        | Location           | Time offset  |
