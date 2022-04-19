@@ -92,7 +92,11 @@
     }
   </style>
   <script>
-    window.onload = function (){
+    var prev_handler = window.onload;
+    window.onload = function () {
+      if (prev_handler) {
+          prev_handler();
+      }
       let dc = document.cookie;
       let decodedCookie = decodeURIComponent(dc);
       cookies = decodedCookie.split(";");

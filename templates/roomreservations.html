@@ -3,15 +3,19 @@
 {% block content %}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <script>
+      var prev_handler = window.onload;
       window.onload = function () {
-          let temp = "{{room}}";
-          if (temp == "temp"){
-            let title = document.getElementById("titlexd");
-            let room = document.getElementById("xyz");
-            let none = document.getElementById("nonefound");
-            title.innerHTML = "All Reservations for {{user}}";
-            room.innerHTML = "Room: ";
-          }
+        if (prev_handler) {
+            prev_handler();
+        }
+        let temp = "{{room}}";
+        if (temp == "temp"){
+        let title = document.getElementById("titlexd");
+        let room = document.getElementById("xyz");
+        let none = document.getElementById("nonefound");
+        title.innerHTML = "All Reservations for {{user}}";
+        room.innerHTML = "Room: ";
+        }
       }
   </script>
   <body>

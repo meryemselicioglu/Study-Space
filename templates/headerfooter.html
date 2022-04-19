@@ -52,7 +52,9 @@
         <script>
             setTimeout(() => {
                 const mes = document.getElementById('flashedmessage');
-                mes.style.display = 'none';
+                if (mes){
+                    mes.style.display = 'none';
+                }
             }, 4000);
         </script>
         <script>
@@ -88,7 +90,6 @@
                 let dc = document.cookie;
                 let decodedCookie = decodeURIComponent(dc);
                 cookies = decodedCookie.split(";");
-                console.log(cookies);
                 for (let i = 0; i < cookies.length; i++){
                     if (cookies[i].includes("admin")){
                         document.getElementById("admin").style.display = "block";
@@ -160,17 +161,3 @@
         </footer>
     </body>
 </html>
-
-
-
-
-
-<!-- 
-
-Basic HTML tags : 
-1) <header>
-2) <main>
-3) <footer>
-
-
--->
