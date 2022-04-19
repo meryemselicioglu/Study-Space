@@ -54,6 +54,12 @@ def get_room(fullroom):
 
     return cursor.fetchall()
 
+def get_room_name(roomid):
+    query = "select building_name, name from rooms where room_id = '{}'".format(roomid)
+    cursor.execute(query)
+    temp = cursor.fetchone()
+    return temp[0] + ' ' + temp[1]
+
 def update_room(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom):
     query = "update rooms set address = '{}', no_of_people = {}, isavailable = '{}', start_time = '{}', end_time = '{}', building_name = '{}', name = '{}', equipment = ARRAY {} where building_name || ' ' || name = '{}'".format(address, no_of_people, isAvailable, start, end, building, name, equipment, fullroom)
     cursor.execute(query)
@@ -75,6 +81,12 @@ def get_user(email):
     if(password == None):
         return None
     return password[0]
+
+def get_user_name(email):
+    query = "select first_name, last_name from users where email = '{}'".format(email)
+    cursor.execute(query)
+
+    return cursor.fetchone()
 
 def get_email(userid):
     query = "select email from users where user_id = {}".format(userid)
@@ -120,11 +132,17 @@ def get_equipment(roomid):
     cursor.execute(query)
     return  cursor.fetchone()[0]
 
-def get_reservations(fullroom):
+def get_reservations_room(fullroom):
     rmid = get_room_id(fullroom)
     query = "select * from reservations where room_id = {}".format(rmid)
     cursor.execute(query)
-    return  cursor.fetchone()
+    return  cursor.fetchall()
+
+def get_reservations_user(user):
+    usrid = get_user_id(user)
+    query = "select * from reservations where user_id = {}".format(usrid)
+    cursor.execute(query)
+    return  cursor.fetchall()
 
 @app.before_request
 def before_request():
@@ -423,11 +441,37 @@ def roomreservations():
     if request.args:
         roomname = request.args.get("room")
         fullroom = roomname.replace("%20", " ")
-        reservations = get_reservations(fullroom)
+        reservations = get_reservations_room(fullroom)
         if reservations:
-            reservations = list(reservations)
-            reservations.append(get_email(reservations[1]))
-        return render_template('roomreservations.html', reservations=reservations)
+            reservations = [list(reservation) for reservation in reservations]
+            for reservation in reservations:
+                reservation.append(get_email(reservation[1]))
+            print(reservations)
+        return render_template('roomreservations.html', reservations=reservations, room=fullroom)
+    else:
+        flash("System Error")
+        return redirect(url_for('adminrooms'))
+
+@app.route('/userreservations')
+def userreservations():
+    if not g.user:
+        flash("You must login first")
+        return redirect(url_for('login'))
+    if not is_admin(g.user):
+        flash("You are not an administrator")
+        return redirect(url_for('home'))
+
+    if request.args:
+        user = request.args.get("user")
+        reservations = get_reservations_user(user)
+        fulluser = get_user_name(user)
+        fulluser = fulluser[0] + ' ' + fulluser[1]
+        if reservations:
+            reservations = [list(reservation) for reservation in reservations]
+            for reservation in reservations:
+                reservation.append(get_room_name(reservation[2]))
+            print(reservations)
+        return render_template('roomreservations.html', reservations=reservations, user=fulluser, room="temp")
     else:
         flash("System Error")
         return redirect(url_for('adminrooms'))
