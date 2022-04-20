@@ -29,7 +29,7 @@ conn.autocommit = True
 
 def add_reservation(user_id, room_id, group_size, start_time, end_time):
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
+    current_time = now.strftime("%H:%M:%S %d/%m/%Y")
 
     query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time) values ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
     cursor.execute(query)
