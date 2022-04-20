@@ -27,11 +27,11 @@ conn = db.connect()
 cursor = conn.cursor()
 conn.autocommit = True
 
-def add_reservation(user_id, room_id, group_size, start_time, end_time):
+def add_reservation(user_id, room_id, group_size, start_time, end_time, date):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S %d/%m/%Y")
 
-    query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time) values ({}, {}, {}, '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time)
+    query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time, date) values ({}, {}, {}, '{}', '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time, date)
     cursor.execute(query)
 
 def add_user(f_name, l_name, email, phone, password, uni):
@@ -279,9 +279,10 @@ def room():
         size = request.form.get("groupsize")
         start = request.form.get("start")
         end = request.form.get("end")
+        date = request.form.get("date")
         userid = get_user_id(g.user)
-
-        add_reservation(userid, roomid, int(size), start, end)
+        
+        add_reservation(userid, roomid, int(size), start, end, date)
         return redirect(url_for('confirm'))
 
     equipment = get_equipment(roomid)
