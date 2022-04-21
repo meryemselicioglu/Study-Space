@@ -75,7 +75,7 @@ def get_users():
     return cursor.fetchall()
 
 def get_user(email):
-    query = "select password from users where email='{}'".format(email)
+    query = "select passwords from users where email='{}'".format(email)
     cursor.execute(query)
     password = cursor.fetchone()
     if(password == None):
@@ -151,9 +151,16 @@ def before_request():
     else:
         g.user = None
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('errorpage.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('server_error_page.html'), 500
+
 @app.route('/')
 def home():
-
     return render_template('mainpage.html')
 
 @app.route('/login', methods=['POST', 'GET'])
