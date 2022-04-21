@@ -75,7 +75,7 @@ def get_users():
     return cursor.fetchall()
 
 def get_user(email):
-    query = "select passwords from users where email='{}'".format(email)
+    query = "select password from users where email='{}'".format(email)
     cursor.execute(query)
     password = cursor.fetchone()
     if(password == None):
