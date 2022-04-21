@@ -1,6 +1,5 @@
 from datetime import datetime
 import time
-from aiohttp import RequestInfo
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
