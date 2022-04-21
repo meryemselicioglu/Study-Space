@@ -1,5 +1,6 @@
 from datetime import datetime
 import time
+from aiohttp import RequestInfo
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -16,7 +17,7 @@ from flask import (
     redirect, 
     request, 
     session, 
-    abort
+    make_response
 )
 
 app = Flask(__name__)
@@ -26,6 +27,7 @@ db = DBConnection('studyspacesboss', 'IPRO497gpd!!', 'studyspacesdbserver.postgr
 conn = db.connect()
 cursor = conn.cursor()
 conn.autocommit = True
+COOKIE_TIME_OUT = 60*60*24*365
 
 def add_reservation(user_id, room_id, group_size, start_time, end_time, date):
     now = datetime.now()
@@ -169,6 +171,7 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        remember = request.form.getlist('rememberme')
         db_password = get_user(username)
 
         if session.get('timeout'):
@@ -198,9 +201,22 @@ def login():
         session['username'] = username
         session['fullname'] = get_name(username)
         flash("You have been logged in!")
-
         if is_admin(username):
             admin = True
+        
+        if remember:
+            if 'user' not in request.cookies:
+                resp = make_response(redirect(url_for('home', admin=str(admin))))
+                resp.set_cookie('user', username, max_age=COOKIE_TIME_OUT)
+                resp.set_cookie('password', password, max_age=COOKIE_TIME_OUT)
+                resp.set_cookie('remember', 'checked', max_age=COOKIE_TIME_OUT)
+                return resp
+        elif 'user' in request.cookies: #unchecked, user wants to unremember
+            resp = make_response(redirect(url_for('home', admin=str(admin))))
+            resp.set_cookie('user', '', expires=0)
+            resp.set_cookie('password', '', expires=0)
+            resp.set_cookie('remember', '', expires=0)
+            return resp
         return redirect(url_for('home', admin=str(admin)))
     return render_template('login.html')
 

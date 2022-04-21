@@ -40,18 +40,17 @@
                 padding: 25px; 
                 background-color: white;
             } 
-    </style> 
-
+    </style>
     <body>  
         <center> <h1> Student Login Form </h1> </center> 
         <form method="post">
             <div class="container"> 
                 <label>Username : </label> 
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <input type="text" placeholder="Enter Username" name="username" required value="{% if 'user' in request.cookies %}{{ request.cookies.get('user') }}{% endif %}">
                 <label>Password : </label> 
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input type="password" placeholder="Enter Password" name="password" required value="{% if 'password' in request.cookies %}{{ request.cookies.get('password') }}{% endif %}">
                 <button type="submit">Login</button> 
-                <input type="checkbox" checked="checked"> Remember me 
+                <input type="checkbox" name="rememberme" checked="{% if 'remember' in request.cookies %}{{ request.cookies.get('remember') }}{% endif %}"> Remember me 
                 <a style="padding-left:1%" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> Forgot password? </a> 
                 <a style="padding-left:1%" href = "{{ url_for('create_account') }}"> New User</a>
             </div> 
