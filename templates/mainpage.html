@@ -1,20 +1,34 @@
 {% extends 'headerfooter.html' %}
-
+position: absolute;
+            opacity: 40%;
+            left: 0;
+            top: 7%;
+            width: 100%;
 {% block content %}
     <style>
-        .welcome {
-            margin:auto;text-align:center;
+        .welcome {            
+            text-align:center;
+            overflow: hidden;
+            padding-bottom: 20%;
+            position: relative;
         }
-        
-        #img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+        .welcome::before {
+            content: "";
+            background-image: url('https://edsurge.imgix.net/uploads/post/image/11715/function-1546653205.jpg?auto=compress%2Cformat&w=640&h=259&fit=crop');  
+            opacity: 50%;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            background-size: cover;
+        }
+        #welcome {
+            font-size: 300%;
         }
     </style>
     <div class="welcome">
         <h1 id="welcome">Welcome to Scarlet Study Space!</h1>
-        <h3 id="description">Click on one of the links above to get started.</h3>
-        <img id="img" width = "300" height = "100" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUqVVflX1m8CqScungJ64G35CcsUiQd9Vdhw&usqp=CAU" alt =" A study space"/>
+        <h2>Click on one of the links above to get started.</h2>
     </div>
 {% endblock %}

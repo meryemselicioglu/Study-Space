@@ -98,7 +98,7 @@
                 prev_handler();
             }
             let building = "{{building}}";
-            if (building != ""){
+            if (building != ""){ //editing room
                 document.getElementById("createbutton").innerText = "Update Room";
                 document.getElementById("maintitle").innerHTML = "Editing Room";
 
@@ -137,85 +137,18 @@
                 }
 
                 var selectOptions = equipment.options;
-                for (var opt, j = 0; opt = selectOptions[j]; j++) {
-                    "{% if equipment %}"
-                        "{% for equip in equipment %}"
+                "{% if equipment %}"
+                    selectOptions[0].selected = false;
+                    "{% for equip in equipment %}"
+                        for (var opt, j = 0; opt = selectOptions[j]; j++) {
                             if (opt.value == "{{equip}}") {
                                 opt.selected = true;
                             }
-                            if (opt.value == "none"){
-                                opt.selected = false;
-                            }
-                        "{% endfor %}"
-                    "{% else %}"
-                        if (opt.value == "None"){
-                            opt.selected = true;
-                            break;
                         }
-                    "{% endif %}"
-                }
+                    "{% endfor %}"
+                "{% endif %}"
             }
         }
-        // window.onload = function () {
-        //     let building = "{{building}}";
-        //     if (building != ""){
-        //         document.getElementById("createbutton").innerText = "Update Room";
-        //         document.getElementById("maintitle").innerHTML = "Editing Room";
-
-        //         document.getElementById("roomnumber").value = "{{number}}";
-        //         document.getElementById("building").value = "{{building}}";
-        //         document.getElementById("address").value = "{{address}}";
-        //         document.getElementById("capacity").value = "{{capacity}}";
-
-        //         let availability = document.getElementById("availability");
-        //         let starttime = document.getElementById("starttime");
-        //         let endtime = document.getElementById("endtime");
-        //         let equipment = document.getElementById("equipment");
-
-        //         var selectOptions = availability.options;
-        //         for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //             if (opt.innerHTML == "{{availability}}") {
-        //                 availability.selectedIndex = j;
-        //                 break;
-        //             }
-        //         }
-
-        //         var selectOptions = starttime.options;
-        //         for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //             if (opt.value == "{{starttime}}") {
-        //                 starttime.selectedIndex = j;
-        //                 break;
-        //             }
-        //         }
-
-        //         var selectOptions = endtime.options;
-        //         for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //             if (opt.value == "{{endtime}}") {
-        //                 endtime.selectedIndex = j;
-        //                 break;
-        //             }
-        //         }
-
-        //         var selectOptions = equipment.options;
-        //         for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //             "{% if equipment %}"
-        //                 "{% for equip in equipment %}"
-        //                     if (opt.value == "{{equip}}") {
-        //                         opt.selected = true;
-        //                     }
-        //                     if (opt.value == "none"){
-        //                         opt.selected = false;
-        //                     }
-        //                 "{% endfor %}"
-        //             "{% else %}"
-        //                 if (opt.value == "None"){
-        //                     opt.selected = true;
-        //                     break;
-        //                 }
-        //             "{% endif %}"
-        //         }
-        //     }
-        // }
     </script>
     <body>  
         <center> <h1 id="maintitle"> Create A New Room </h1> </center> 

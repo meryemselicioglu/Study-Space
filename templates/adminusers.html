@@ -86,10 +86,12 @@
                   <h4 class="adjust_line_height" id="email{{loop.index}}">Email: {{ user[3] }}</h4>
                   <div class="ree">
                     <button id="reservations{{loop.index}}" type="button" class="reservations_button" onclick="reservations(this.id)">Reservations</button>
-                    {% if user not in admins %}
-                      <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
-                    {% else %}
-                      <button id="{{loop.index}}" type="button" onclick="removeadmin(this.id)" class="delete_button">Remove As Admin</button>
+                    {% if user[3] != session.username %}
+                      {% if user not in admins %}
+                        <button id="{{loop.index}}" type="button" onclick="setadmin(this.id)" class="delete_button">Set Admin</button>
+                      {% else %}
+                        <button id="{{loop.index}}" type="button" onclick="removeadmin(this.id)" class="delete_button">Remove As Admin</button>
+                      {% endif %}
                     {% endif %}
                   </div>
                 </td>
