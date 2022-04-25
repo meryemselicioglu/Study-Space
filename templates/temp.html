@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="row" style="margin-left: 10px;">
+            <p>
+              <div class="col-md-2"><h2 style="font-size:xx-large;">All Study Rooms</h2></div>
+              <button type="button" class="create_button" onclick="window.location.href= Flask.url_for('createroom');">Create New Room</button>
+            </p>
+            <p>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th style="font-size: medium;">Room</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                        <tr>
+                        <td style="font-size: medium;">{{loop.index}}. </td>
+                        <td>
+                        <h4> Room: {{ room[7] }}</h4>
+                        <h4 class="adjust_line_height">Occupied: {% if room[3] == True %} No {% else %} Yes {% endif %}</h4>
+                        <h4 class="adjust_line_height">Building: {{ room[6] }}</h4>
+                        <h4 class="adjust_line_height">Hours: {{ room[4] }} - {{ room[5] }}</h4>
+                        <div class="ree">
+                            <button id="edit{{loop.index}}" type="button" class="edit_button" onclick="edit(this.id)">Edit</button>
+                            <button id="delete{{loop.index}}" type="button" class="delete_button" onclick="deleteroom(this.id)">Delete</button>
+                            <button id="reservations{{loop.index}}" type="button" class="reservations_button" onclick="reservations(this.id)">Reservations</button>
+                        </div>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </p>
+          </div>
+    </body>
+</html>

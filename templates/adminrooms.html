@@ -45,7 +45,7 @@
     }
 
   </style>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script>
     function edit(id) {
       let temp = document.getElementById(id);
@@ -102,7 +102,7 @@
             </tr>
           </thead>
           <tbody>
-              {% for room in rooms %}
+            {% for room in rooms %}
               <tr>
                 <td style="font-size: medium;">{{loop.index}}. </td>
                 <td>
@@ -115,7 +115,7 @@
                   <button id="delete{{loop.index}}" type="button" class="delete_button" onclick="deleteroom(this.id)">Delete</button>
                   <button id="reservations{{loop.index}}" type="button" class="reservations_button" onclick="reservations(this.id)">Reservations</button>
                 </div>
-              </td>
+                </td>
               </tr>
             {% endfor %}
             

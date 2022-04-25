@@ -10,11 +10,11 @@
         }
         let temp = "{{room}}";
         if (temp == "temp"){
-        let title = document.getElementById("titlexd");
-        let room = document.getElementById("xyz");
-        let none = document.getElementById("nonefound");
-        title.innerHTML = "All Reservations for {{user}}";
-        room.innerHTML = "Room: ";
+            let title = document.getElementById("titlexd");
+            let room = document.getElementById("xyz");
+            let none = document.getElementById("nonefound");
+            title.innerHTML = "All Reservations for {{user}}";
+            room.innerHTML = "Room: ";
         }
       }
   </script>
@@ -34,17 +34,17 @@
                 </thead>
                 <tbody>
                     {% for reservation in reservations %}
-                    <tr>
-                        <td style="font-size: medium;">{{loop.index}}. </td>
-                        <td>
-                        <h4><b id="xyz">User: </b>{{ reservation[8] }}</h4>
-                        <h4 class="adjust_line_height"><b>Date: </b>{{ reservation[7] }}</h4>
-                        <h4 class="adjust_line_height"><b>Start Time: </b>{{ reservation[5] }}</h4>
-                        <h4 class="adjust_line_height"><b>End Time: </b>{{ reservation[6] }}</h4>
-                        <h4 class="adjust_line_height"><b>Group Size: </b>{{ reservation[3] }}</h4>
-                        <h4 class="adjust_line_height"><b>Reserve Time: </b>{{ reservation[4] }}</h4>
-                    </td>
-                    </tr>
+                        <tr>
+                            <td style="font-size: medium;">{{loop.index}}. </td>
+                            <td>
+                            <h4><b id="xyz">User: </b>{{ reservation[8] }}</h4>
+                            <h4 class="adjust_line_height"><b>Date: </b>{{ reservation[7] }}</h4>
+                            <h4 class="adjust_line_height"><b>Start Time: </b>{{ reservation[5] }}</h4>
+                            <h4 class="adjust_line_height"><b>End Time: </b>{{ reservation[6] }}</h4>
+                            <h4 class="adjust_line_height"><b>Group Size: </b>{{ reservation[3] }}</h4>
+                            <h4 class="adjust_line_height"><b>Reserve Time: </b>{{ reservation[4] }}</h4>
+                        </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
                 </table>

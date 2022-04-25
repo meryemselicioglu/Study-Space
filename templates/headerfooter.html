@@ -6,53 +6,6 @@
         <meta name = "description" content = "A place to help you focus on your work and and boost your performance">
         <title>StudySpace</title>
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-        <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <style>
-            a{
-                text-decoration: none;
-            }
-            #title {
-                color: #f0735d;
-                font-size: 250%;
-            }
-            footer{
-                padding-top: 3%;
-            }
-            .roww{
-                bottom: 0px;
-                width: 50%;
-                margin-left: auto;
-                margin-right: auto;
-                display: table;
-                text-align: center;
-                display:flex;
-                flex-wrap: wrap;
-            }
-            .footer-col{
-                width : 25%;
-                padding :0 15px;
-            }
-
-            .footer-col h4{
-                font-size: 18px;
-                color: #110f0f;
-                text-transform: capitalize;
-                margin-bottom:15px;
-                font-weight: 100px;
-                position: relative;
-            }
-            ul{
-                list-style: none;
-            }
-
-            .center{
-                text-align:center
-            }
-
-            .right{
-                text-align:right 
-            }
-        </style>
         <script>
             setTimeout(() => {
                 const mes = document.getElementById('flashedmessage');
@@ -65,7 +18,7 @@
             window.onload = function () {
                 let user = "{{ session.username }}";
                 if (user == "") {
-                    document.getElementById("loggedin").style.visibility = "hidden";
+                    document.getElementById("loggedin1").style.visibility = "hidden";
                     document.getElementById("admin").style.display = "none";
                     document.getElementById("login").innerHTML = "Login";
                     document.getElementById("login").href = Flask.url_for("login");
@@ -73,7 +26,7 @@
                     document.cookie = "roomname= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                 }
                 else{
-                    document.getElementById("loggedin").innerHTML = "Logged in: {{ session.fullname }}";
+                    document.getElementById("loggedin1").innerHTML = "Logged in: {{ session.fullname }}";
                     document.getElementById("login").innerHTML = "Log out";
                     document.getElementById("login").href = Flask.url_for("logout");
                     
@@ -108,14 +61,14 @@
     </head>
     <body>
         <header style="position: relative;">
-            <div id="top">
-                <h1 id="title">
+            <div id="top1">
+                <h1 id="title1">
                     Scarlet Study Space
                 </h1>
-                <h5 id="loggedin"></h5>
+                <h5 id="loggedin1"></h5>
             </div>
             <hr/>
-            <div class="links">
+            <div class="links1">
                 <a id="home" href = "{{ url_for('home') }}"> Home</a>
                 <a id="rooms" href = "{{ url_for('rooms') }}"> Reserve Room</a>
                 <a href = ""> About Us</a>
@@ -135,7 +88,7 @@
 
         <footer>
             <hr/>
-            <div class ="roww">
+            <div class ="roww1">
                 <div class = "footer-col">
                     <h4>
                         Company
