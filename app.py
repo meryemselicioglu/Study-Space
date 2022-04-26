@@ -1,5 +1,6 @@
 from datetime import datetime
 import time
+import smtplib
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -32,8 +33,9 @@ def add_reservation(user_id, room_id, group_size, start_time, end_time, date):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S %d/%m/%Y")
 
-    query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time, date) values ({}, {}, {}, '{}', '{}', '{}', '{}')".format(user_id, room_id, group_size, current_time, start_time, end_time, date)
+    query = "insert into reservations (user_id, room_id, group_size, reserve_time, start_time, end_time, date) values ({}, {}, {}, '{}', '{}', '{}', '{}') returning reservation_id".format(user_id, room_id, group_size, current_time, start_time, end_time, date)
     cursor.execute(query)
+    return cursor.fetchone()[0]
 
 def add_user(f_name, l_name, email, phone, password, uni):
     query = "insert into users (first_name, last_name, email, phone_no, password, isadmin, university) values ('{}', '{}', '{}', '{}', '{}', 'False', '{}')".format(f_name, l_name, email, phone, password, uni)
@@ -145,6 +147,21 @@ def get_reservations_user(user):
     cursor.execute(query)
     return  cursor.fetchall()
 
+def send_email(rid, destination, firstname, room, start, end, date):
+    sender = 'scarletstudyspace@gmail.com'
+    message = """To: {}\nSubject: Reservation Confirmation for Reservation #{}\n\nHi {}!\n\nYour reservation has been confirmed with the following details:\nRoom: {}\nDate: {}\nTime: {} to {}\n\nIf you have any questions, feel free to ask us at scarletstudyspace@gmail.com. Thanks!""".format(destination, rid, firstname, room, date, start, end)
+    try:
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpObj.ehlo()
+        smtpObj.starttls()
+        smtpObj.login(sender, 'IPRO497gpd!!')
+
+        smtpObj.sendmail(sender, destination, message)
+        smtpObj.close()
+    except:
+        print('Email was not sent :(')
+
+
 @app.before_request
 def before_request():
     if 'username' in session:
@@ -199,6 +216,7 @@ def login():
 
         session['username'] = username
         session['fullname'] = get_name(username)
+        session['firstname'] = session['fullname'].split(' ')[0]
         flash("You have been logged in!")
         if is_admin(username):
             admin = True
@@ -304,7 +322,8 @@ def room():
         date = request.form.get("date")
         userid = get_user_id(g.user)
         
-        add_reservation(userid, roomid, int(size), start, end, date)
+        rid = add_reservation(userid, roomid, int(size), start, end, date)
+        send_email(rid, g.user, session['firstname'], fullroom, start, end, date)
         return redirect(url_for('confirm'))
 
     equipment = get_equipment(roomid)
