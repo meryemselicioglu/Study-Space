@@ -11,10 +11,12 @@
         let temp = "{{room}}";
         if (temp == "temp"){
             let title = document.getElementById("titlexd");
-            let room = document.getElementById("xyz");
-            let none = document.getElementById("nonefound");
+            let rooms = document.querySelectorAll('*[id^="xyz"]');
+            for (i=0;i<rooms.length;i++){
+                rooms[i].innerHTML = "Room: ";
+            }
+            
             title.innerHTML = "All Reservations for {{user}}";
-            room.innerHTML = "Room: ";
         }
       }
   </script>
@@ -37,7 +39,7 @@
                         <tr>
                             <td style="font-size: medium;">{{loop.index}}. </td>
                             <td>
-                            <h4><b id="xyz">User: </b>{{ reservation[8] }}</h4>
+                            <h4><b id="xyz{{loop.index}}">User: </b>{{ reservation[8] }}</h4>
                             <h4 class="adjust_line_height"><b>Date: </b>{{ reservation[7] }}</h4>
                             <h4 class="adjust_line_height"><b>Start Time: </b>{{ reservation[5] }}</h4>
                             <h4 class="adjust_line_height"><b>End Time: </b>{{ reservation[6] }}</h4>
