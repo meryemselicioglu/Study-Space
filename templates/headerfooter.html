@@ -4,8 +4,10 @@
         {{ JSGlue.include() }}
         <meta charset = "UTF-8">
         <meta name = "description" content = "A place to help you focus on your work and and boost your performance">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>StudySpace</title>
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script>
             setTimeout(() => {
                 const mes = document.getElementById('flashedmessage');
@@ -57,24 +59,36 @@
                     }
                 }
             }
+
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
         </script>
     </head>
     <body>
         <header style="position: relative;">
             <div id="top1">
+                <!-- <img src="../logo.jpeg" style="max-width: 70px; max-height: 70px;"> -->
                 <h1 id="title1">
                     Scarlet Study Space
                 </h1>
                 <h5 id="loggedin1"></h5>
             </div>
             <hr/>
-            <div class="links1">
-                <a id="home" href = "{{ url_for('home') }}"> Home</a>
-                <a id="rooms" href = "{{ url_for('rooms') }}"> Reserve Room</a>
-                <a href = ""> About Us</a>
+            <div class="topnav" id="myTopnav">
+                <a id="home" href = "{{ url_for('home') }}">Home</a>
+                <a href = "">About Us</a>
+                <a id="rooms" href = "{{ url_for('rooms') }}">Reserve Room</a>
                 <a id="admin">Admin Pages</a>
                 <a id="login">Login</a>
-                <input type = "text " placeholder = "search" /> 
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                  <i class="fa fa-bars"></i>
+                </a>
             </div>
             <hr/>
         </header>
@@ -88,33 +102,34 @@
 
         <footer>
             <hr/>
-            <div class ="roww1">
+            <p style="text-align: center;">Copyright © 2022 Scarlet Study Space</p>
+            <!-- <div class ="roww1">
                 <div class = "footer-col">
                     <h4>
                         Company
                     </h4>
                     <ul>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="">About us</a></li>
+                        <li><a href="">Contact us</a></li>
+                        <li><a href="">Privacy Policy</a></li>
                     </ul>
                 </div> 
                 <div class = "footer-col">
                     <h4>Get Help</h4>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="">FAQ</a></li>
                     </ul>
                 </div>
                 <div class = "footer-col">
                     <h4> Follow Us</h4>
                     <div class = "social-links">
                         <ul>
-                            <a href="#"><i class = "fab fa-facebook -f"></i></a>
-                            <a href="#"><i class = "fab fa-instagram"></i></a>
+                            <a href=""><i class = "fab fa-facebook -f"></i></a>
+                            <a href=""><i class = "fab fa-instagram"></i></a>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </footer>
     </body>
 </html>
